@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>AngioBase</title>
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta3/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-V06iGeOYiHqaJG18vU/udsyVfgcm8Pgax9HmoZh65R0FrT9X2GZZ8w2ZQcZkzZGV" crossorigin="anonymous">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" href="../static/css/option.css">
+    <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+    <script src="../static/js/bootstrap.min.js"></script>
+    <script src="../static/js/mainPageJs.js"></script>
+    <script src='../static/js/jquery-3.2.1.min.js'></script>
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/js/theme.js"></script>
+    <style type="text/css">
+        #cvs, #cvs1, #cvs2 ,#cvs4,#cvs3,#points1,#points2,#points3{
+            display: none;
+             color: var(--text-color);
+        }
+    </style>
+</head>
+<body>
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+            <div class="logo pull-right">
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Option</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user_center' %}">user_center</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout1' %}">logout</a>
+                        {% else %}
+                            <a href="{% url 'login1' %}">login</a>
+                        {% endif %}
+
+                        <a href="{% url 'register1' %}">register</a>
+                    {%if user.is_superuser%}
+                     <a href="{% url 'Beta_info' %}">Tester information </a>
+                        {%endif%}
+
+                    </div>
+                </div>
+                <div class="btn">
+                    <button mode="light" class="el-button el-button--primary">Light</button>
+                    <button mode="read" class="el-button el-button--success">Read</button>
+                    <button mode="dark" class="el-button el-button--warning">Dark</button>
+                </div>
+
+            </div>
+
+            <ul class="nav-list pull-right">
+                <li><a  class="text" href="{% url 'myhome_index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a  class="text" href="{% url 'vessel_name_ide' %}">Vessel Identification</a></li>
+                <li class="active"><a href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+<div id="out">
+
+    <div id="outB">
+        <div class="news-left pull-left" style="margin-top: 30px">
+            <div class="this-news">Quiz Bank</div>
+            <ul class="news-menu">
+                <li class="active"><a href="#"><span class="glyphicon glyphicon-play"></span>exam
+                </a></li>
+            </ul>
+        </div>
+
+        {% for one in page_obj.object_list %}
+
+
+
+
+
+            <label>
+
+            <br>
+            <br>
+            {% if one.question.qid.qname %}
+                <h2>{{ xu }}/3:{{ one.question.qid.qname }}</h2> <h3>Subject scores:10</h3>
+
+            {% elif one.question.qname %}
+                <h2>{{ xu }}/3:{{ one.question.qname }}</h2><h3>Subject scores:10</h3>
+
+            {% endif %}
+            <br>
+            <div id="points1" >Subject to score：10points</div>
+            <div id="points2">Subject to score：0points</div>
+            <div id="points3">The total score of this set of papers:<span id="obj"></span> points</div>
+
+
+            <div class="news-right pull-left" style="margin-top: 30px">
+
+                <div class="text" style="width: 1100px">
+                    <div class="list-text pull-left" style=" position:absolute;margin-top: 100px">
+                        <form id="formid" action="" method="post" enctype="multipart/form-data">
+                                <div class="form-check">
+                                    {% for answer , option in  one.answers %}
+
+                                        <input class="name" class="form-check-input" type="radio" name="flexRadioDefault1"
+                                               value="{{ answer.id }}">
+                                        <label class="form-check-label" for="flexRadioDefault1">
+                                            {{ option }}:{{ answer.answer }}
+                                        </label>
+                                        <br>
+
+            {#                            <div id="examid" > {{ exam_id }}</div>#}
+                                    {% endfor %}
+                                <div id="examid" style="display:none">{{ exam_id }} </div>
+                                <div id="qsid" style="display:none">{{ qs_id }} </div>
+                                    <button id="btnCrop" type="button" onclick="getIndex()">submit</button>
+                                    <script>
+                                        function getIndex() {
+                                            let button = document.getElementById("btnCrop")
+                                            let examid = document.getElementById("examid")
+                                            let qsid = document.getElementById("qsid")
+                                            let node = document.getElementsByClassName("name")
+                                            var data_point
+                                            console.log(node)
+                                            let num = 0
+                                            let length = node.length
+                                            for (let i = 0; i < length; i++) {
+                                                if (node[i].checked) {
+                                                    num = i
+                                                }
+                                            }
+                                            console.log()
+                                            $.ajax({
+                                                url: '{% url 'start' %}',
+                                                type: 'POST',
+                                                data: {"flexRadioDefault1": node[num].value,"exam_id":examid.innerHTML,"qs_id":qsid.innerHTML},
+                                                success: function (e) {
+                                                    {#alert(e)#}
+                                                    data_point = e['points_sum']
+                                                    document.getElementById("obj").innerHTML = data_point
+                                                    console.log(e)
+
+                                                    console.log(e['xu'])
+                                                    if (e['xu'] == "1") {
+                                                        points3.style.display = 'block';
+                                                    }
+                                                    else {
+                                                        points3.style.display = 'none';
+                                                    }
+
+                                                    if (e['code'] == "1") {
+                                                        alert("RIGHT!")
+                                                        cvs1.style.display = 'block';
+                                                        points1.style.display = 'block';
+
+
+                                                        cvs2.style.display = 'none';
+                                                        cvs3.style.display = 'none';
+                                                        cvs4.style.display = 'none';
+                                                        points2.style.display = 'none';
+                                                        console.log(e)
+                                                    } else if(e['code'] == "0"){
+                                                        alert("WRONG!")
+                                                        cvs2.style.display = 'block';
+                                                        points2.style.display = 'block';
+
+
+                                                        cvs1.style.display = 'none';
+                                                        cvs3.style.display = 'none';
+                                                        cvs4.style.display = 'none';
+                                                        points1.style.display = 'none';
+
+                                                    }
+                                                    else if(e['code'] == "3"){
+                                                        alert("Do not answer this question twice because you have already done so!")
+                                                        cvs3.style.display = 'block';
+                                                        points2.style.display = 'block';
+
+
+                                                        cvs1.style.display = 'none';
+                                                        cvs2.style.display = 'none';
+                                                        cvs4.style.display = 'none';
+                                                        points1.style.display = 'none';
+
+                                                    }
+                                                     else if(e['code'] == "4"){
+                                                        alert("Do not answer this question twice because you have already done so!")
+                                                        cvs4.style.display = 'block';
+                                                        points1.style.display = 'block';
+
+
+                                                        cvs1.style.display = 'none';
+                                                        cvs2.style.display = 'none';
+                                                        cvs3.style.display = 'none';
+                                                        points2.style.display = 'none';
+
+                                                    }
+
+                                                }
+                                            });
+                                        }
+                                    </script>
+
+                                </div>
+
+                        </form>
+                    </div>
+                    <div class="list-text pull-right">
+                        {% if one.g_count != 0 %}
+                        <li id="liId">1/{{ one.g_count }}</li>
+
+                        <li class="show-img"><a href="#"><img id="imgId"
+                                                              src="\static\question\q\QB{{ one.gid }}\QB{{ one.gid }}_1.gif">
+                        </a></li>
+                        <button id="button1" class="prev pull-left"><--Pre</button>
+                        <button id="button2" class="next pull-right">Next--></button>
+                        {% endif %}
+
+                    </div>
+                    <div class="clearfix"></div>
+                </div>
+
+
+                <script type="text/javascript">
+                    $('.nav-list li').hover(function () {
+                        $(this).children('.subnav').css('display', 'block');
+                    }, function () {
+                        $(this).children('.subnav').css('display', 'none');
+                    });
+                </script>
+
+                <script type="text/javascript">
+                    window.onload = function () {
+                        var arr = [];
+                        arr[0] = "1/{{ one.g_count }}";
+                        arr[1] = "2/{{ one.g_count }}";
+                        arr[2] = "3/{{ one.g_count }}";
+                        arr[3] = "4/{{ one.g_count }}";
+                        arr[4] = "5/{{ one.g_count }}";
+                        arr[5] = "6/{{ one.g_count }}";
+                        arr[6] = "7/{{ one.g_count }}";
+                        arr[7] = "8/{{ one.g_count }}";
+                        var img = document.getElementById("imgId");
+                        {#console.log(img.length);#}
+
+                        var index = 1;
+                        document.getElementById("button1").onmousedown = function () {
+                            index--;
+
+                            console.log(index);
+                            if (index < 1) {
+                                index = 1;
+                            }
+                            document.getElementById("liId").innerHTML = arr[index - 1];
+                            img.src = "\\static\\question\\q\\QB{{ one.gid }}\\QB{{ one.gid }}_" + index + ".gif";
+                            {#img.src="/{{one.gif}}/"+index+"/.gif"#}
+                            console.log(img.src);
+                            console.log(11111)
+                        };
+                        document.getElementById("button2").onclick = function () {
+                            index++;
+                            console.log(index);
+                            {#var lll =  {{ one.gif }} ;#}
+                            if (index > {{ one.g_count }}) {
+                                index = {{ one.g_count }};
+                            }
+                            document.getElementById("liId").innerHTML = arr[index - 1];
+                            console.log(index);
+                            img.src = "\\static\\question\\q\\QB{{ one.gid }}\\QB{{ one.gid }}_" + index + ".gif";
+                            {#img.src = "\\static\\question\\q\\QB1\\QB1_" +  index + ".gif";#}
+                            console.log(img.src);
+                            console.log(1111122)
+                        };
+                    };
+
+                </script>
+
+
+                <img src="{{ one.question.qid.q_url }}" alt="" />
+
+
+                <div id="cvs1">
+
+                    <div>
+                        <font color="green">Congratulations on your correct answer!</font>
+                        {#                            <br>#}
+                        {#                            The correct answer is : {{ one.right_option }}：{{ one.right_answer.answer }}#}
+                        <br>
+                    <div class="Explanation">
+                        {% if one.question.qid.explanation %}
+                            Explanation: {{ one.question.qid.explanation }}
+                            <br>
+                            References:{{ one.question.qid.references }}
+                            <br>
+                        {% else %}
+                            Explanation: {{ one.question.explanation }}
+                            <br>
+                            References:{{ one.question.references }}
+                            <br>
+                        {% endif %}
+
+                        {% for url in one.ex %}
+
+                            <img src="{{ url.e_url }}" alt="">
+                        {% endfor %}
+                        {#                            <img src="{{ one.question.qid.e_url }}" alt="">#}
+                    </div>
+                    </div>
+                </div>
+                <div id="cvs2">
+                    {#                        <image id="imageOne" src="img/about2.png" mode="aspectFit|aspectFill|widthFix" lazy-load="false"#}
+                    {#                               binderror="" bindload=""/>#}
+                    <div>
+                        <font color="#FF0000">Sorry, the answer you chose is wrong.</font>
+                        <br>
+                        <font color="#FF0000"> The correct answer is
+                            : {{ one.right_option }}：{{ one.right_answer.answer }}</font>
+                        <br>
+                        <div class="Explanation">
+                            {% if one.question.qid.explanation %}
+                                Explanation: {{ one.question.qid.explanation }}
+                                <br>
+                                References:{{ one.question.qid.references }}
+                                <br>
+                            {% else %}
+                                Explanation: {{ one.question.explanation }}
+                                <br>
+                                References:{{ one.question.references }}
+                                <br>
+                            {% endif %}
+
+
+                            {% for url in one.ex %}
+                                <img src="{{ url.e_url }}" alt="">
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            <div id="cvs4">
+
+                    <div>
+                        <font color="green">You've already done that, and you've done it right</font>
+                        {#                            <br>#}
+                        {#                            The correct answer is : {{ one.right_option }}：{{ one.right_answer.answer }}#}
+                        <br>
+                    <div class="Explanation">
+                        {% if one.question.qid.explanation %}
+                            Explanation: {{ one.question.qid.explanation }}
+                            <br>
+                            References:{{ one.question.qid.references }}
+                            <br>
+                        {% else %}
+                            Explanation: {{ one.question.explanation }}
+                            <br>
+                            References:{{ one.question.references }}
+                            <br>
+                        {% endif %}
+
+                        {% for url in one.ex %}
+
+                            <img src="{{ url.e_url }}" alt="">
+                        {% endfor %}
+                        {#                            <img src="{{ one.question.qid.e_url }}" alt="">#}
+                    </div>
+                    </div>
+                </div>
+            <div id="cvs3">
+
+                    <div>
+                        <font color="red">You have already done this, but you have done it wrong</font>
+                        <br>
+                        {#                            <br>#}
+{#                                                    The correct answer is : {{ one.right_option }}：{{ one.right_answer.answer }}#}
+                    <font color="#FF0000"> The correct answer is
+                            : {{ one.right_option }}：{{ one.right_answer.answer }}</font>
+                        <br>
+                    <div class="Explanation">
+                        {% if one.question.qid.explanation %}
+                            Explanation: {{ one.question.qid.explanation }}
+                            <br>
+                            References:{{ one.question.qid.references }}
+                            <br>
+                        {% else %}
+                            Explanation: {{ one.question.explanation }}
+                            <br>
+                            References:{{ one.question.references }}
+                            <br>
+                        {% endif %}
+
+                        {% for url in one.ex %}
+
+                            <img src="{{ url.e_url }}" alt="">
+                        {% endfor %}
+                        {#                            <img src="{{ one.question.qid.e_url }}" alt="">#}
+                    </div>
+                    </div>
+                </div>
+
+                <div id="cvs">
+                    <h3>hide</h3>
+                </div>
+
+
+                <nav aria-label="Page navigation example">
+                    <ul class="pagination">
+                        {% if page_obj.has_previous %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="{% url 'start' %}?page={{ page_obj.previous_page_number }}">Previous</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link" href="{% url 'start' %}?page=1">Previous</a>
+                            </li>
+                        {% endif %}
+
+                        {% if page_obj.has_next %}
+                            <li class="page-item"><a class="page-link"
+                                                     href="{% url 'start' %}?page={{ page_obj.next_page_number }}">Next</a>
+                            </li>
+                        {% else %}
+                            <li class="page-item"><a class="page-link"
+{#                                                     href="{% url 'start' %}?page=1000">Next</a>#}
+                            href="{% url 'start' %}?page={{ page_obj.paginator.num_pages }}">Next</a>
+                            </li>
+                        {% endif %}
+
+                    </ul>
+                </nav>
+
+
+                <div class="error-msg"></div>
+            </div>
+            {#                </label>#}
+
+        {% endfor %}
+
+
+    </div>
+</div>
+{#    </div>#}
+{#</div>#}
+
+
+</div>
+
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/mainPageJs.js"></script>
+<script src='../static/js/jquery-3.2.1.min.js'></script>
+<script src="../js/jquery-1.11.0.min.js"></script>
+<script src="../js/bootstrap.min.js"></script>
+<script src="../static/js/Download.js"></script>
+{% for one in page_obj.object_list %}
+
+{% endfor %}
+<script>
+
+if (getCookie('mode') == null){
+    setMode("light");
+}
+else{
+
+    setMode(getCookie('mode'));
+}
+document.querySelector(".btn").addEventListener("click", (e) => {
+    setMode(e.target.getAttribute("mode"));
+    setCookie('mode',e.target.getAttribute("mode"));
+
+})
+
+</script>
+
+
+
+</body>
+</html>

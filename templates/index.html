@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>HomePage</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    {#    <link rel="stylesheet" href="../static/css2/bootstrap.css">#}
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+     <link rel="stylesheet" href="../static/css/option.css">
+    <script src="../static/js2/bootstrap.bundle.js"></script>
+    <script src="../static/js2/bootstrap.js"></script>
+    <script src="../static/js/theme.js"></script>
+
+
+</head>
+<body>
+
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+
+            <h3 class="logo pull-left">AngioBase</h3>
+
+            <div class="logo pull-right">
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Option</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user_center' %}">user_center</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout1' %}">logout</a>
+                        {% else %}
+                            <a href="{% url 'login1' %}">login</a>
+                        {% endif %}
+
+                        <a href="{% url 'register1' %}">register</a>
+                        {%if user.is_superuser%}
+                         <a href="{% url 'Beta_info' %}">Tester information </a>
+                            {%endif%}
+
+
+                    </div>
+                </div>
+                <div class="btn">
+                                    <button mode="light" class="el-button el-button--primary">Light</button>
+                                    <button mode="read" class="el-button el-button--success">Read</button>
+                                    <button mode="dark" class="el-button el-button--warning">Dark</button>
+                </div>
+
+            </div>
+
+
+            <ul class="nav-list pull-right">
+                <li class="active"><a  href="{% url 'myhome_index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a class="text" href="{% url 'vessel_name_ide' %}">Vessel Identification</a></li>
+                <li><a class="text" href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<div>
+    <div class="index-tit-img">
+            <img style="width: 170px;height: 115px; display:block; margin:auto; text-align:center" src="../static/img/logo.png">
+        </div>
+    <div class="index-tit">
+
+        <div class="index-tit-text">
+            <h2>Welcome&nbsp;to&nbsp;AngioBase</h2>
+            <span>Your&nbsp;Home&nbsp;for&nbsp;Mastering&nbsp;Coronary&nbsp;Angiography</span>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="index-content">
+            <div class="content-left pull-left">
+                <div class="content-left-list">
+
+                    {% for news in news_list_l %}
+                        <div class="left-list " style="height:300px">
+                            <a href="{% url 'news_detail' news.id %}">
+                                <div class="list-data pull-left" style="height:300px">
+                                    <div class="data">{{ news.day }}</div>
+                                    <span>{{ news.month }}</span>
+                                    <span>{{ news.year }}</span>
+                                </div>
+                                <div class="list-text pull-right">{{ news.title }}</div>
+                                <div class="list-text pull-right">{{ news.content }}....</div>
+                            </a>
+                            <div class="clearfix" style="height:300px"></div>
+                        </div>
+                    {% endfor %}
+
+                </div>
+
+            </div>
+            <div class="content-right pull-right">
+
+{#            <span class="pull-right">#}
+{#                <a href="http://www.zzuli.edu.cn/280/list.htm">更多</a>#}
+{#            </span>#}
+
+                <div class="content-right-hot">
+                    {% for news in news_list_r %}
+                        <div class="left-list" style="height:300px">
+                            <a href="{% url 'news_detail' news.id %}">
+                                <div class="list-data pull-left" style="height:300px">
+                                    <div class="data">{{ news.day }}</div>
+                                    <span>{{ news.month }}</span>
+                                    <span>{{ news.year }}</span>
+                                </div>
+                                <div class="right-list-text pull-right" >{{ news.title }}</div>
+                                <div class="right-list-text pull-right">{{ news.content }}....</div>
+                            </a>
+                            <div class="clearfix" style="height:300px"></div>
+                        </div>
+                    {% endfor %}
+                    {##}
+
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/Download.js"></script>
+<script type="text/javascript">
+    $('.nav-list li').hover(function () {
+        $(this).children('.subnav').css('display', 'block');
+    }, function () {
+        $(this).children('.subnav').css('display', 'none');
+    });
+
+
+    $(function () { //页面加载完毕才执行
+
+        //=========设置参数==========
+        //图片统一高度：
+        var images_height = '615px';
+        //图片路径/链接(数组形式):
+        var images_url = [
+            '/static/img/ad-01.jpg',
+            '/static/img/ad-01.jpg',
+            '/static/img/ad-01.jpg'
+        ];
+        var images_count = images_url.length;
+        console.log(images_count);
+
+        //创建节点
+        //图片列表节点
+        for (var j = 0; j < images_count + 1; j++) {
+            $('.slt-banner ul').append('<li></li>')
+        }
+        //轮播圆点按钮节点
+        for (var j = 0; j < images_count; j++) {
+            if (j == 0) {
+                $('.slt-banner ol').append('<li class="current"></li>')
+            } else {
+                $('.slt-banner ol').append('<li></li>')
+            }
+        }
+        //载入图片
+        $('.slt-banner ul li').css('background-image', 'url(' + images_url[0] + ')');
+        $.each(images_url, function (key, value) {
+            $('.slt-banner ul li').eq(key).css('background-image', 'url(' + value + ')');
+        });
+        $('.slt-banner').css('height', images_height);
+        $('.slt-banner ul').css('width', (images_count + 1) * 100 + '%');
+        $('.slt-banner ol').css('margin-left', -images_count * 20 * 0.5 - 10 + 'px');
+
+        //=========================
+
+        var num = 0;
+        //获取窗口宽度
+        var window_width = 1200;
+        $(window).resize(function () {
+            window_width = 1200;
+            $('.slt-banner ul li').css({width: window_width});
+            clearInterval(timer);
+            nextPlay();
+            timer = setInterval(nextPlay, 2000);
+        });
+        //console.log(window_width);
+        $('.slt-banner ul li').width(window_width);
+        //轮播圆点
+        $('.slt-banner ol li').mouseover(function () {//用hover的话会有两个事件(鼠标进入和离开)
+            $(this).addClass('current').siblings().removeClass('current');
+            //第一张图： 0 * window_width
+            //第二张图： 1 * window_width
+            //第三张图： 2 * window_width
+            //获取当前编号
+            var i = $(this).index();
+            //console.log(i);
+            $('.slt-banner ul').stop().animate({left: -i * window_width}, 500);
+            num = i;
+        });
+        //自动播放
+        var timer = null;
+
+        function prevPlay() {
+            num--;
+            if (num < 0) {
+                //悄悄把图片跳到最后一张图(复制页,与第一张图相同),然后做出图片播放动画，left参数是定位而不是移动的长度
+                $('.slt-banner ul').css({left: -window_width * images_count}).stop().animate({left: -window_width * (images_count - 1)}, 500);
+                num = images_count - 1;
+            } else {
+                //console.log(num);
+                $('.slt-banner ul').stop().animate({left: -num * window_width}, 500);
+            }
+            if (num == images_count - 1) {
+                $('.slt-banner ol li').eq(images_count - 1).addClass('current').siblings().removeClass('current');
+            } else {
+                $('.slt-banner ol li').eq(num).addClass('current').siblings().removeClass('current');
+
+            }
+        }
+
+        function nextPlay() {
+            num++;
+            if (num > images_count) {
+                //播放到最后一张(复制页)后,悄悄地把图片跳到第一张,因为和第一张相同,所以难以发觉,
+                $('.slt-banner ul').css({left: 0}).stop().animate({left: -window_width}, 500);
+                //css({left:0})是直接悄悄改变位置，animate({left:-window_width},500)是做出移动动画
+                //随后要把指针指向第二张图片,表示已经播放至第二张了。
+                num = 1;
+            } else {
+                //在最后面加入一张和第一张相同的图片，如果播放到最后一张，继续往下播，悄悄回到第一张(肉眼看不见)，从第一张播放到第二张
+                //console.log(num);
+                $('.slt-banner ul').stop().animate({left: -num * window_width}, 500);
+            }
+            if (num == images_count) {
+                $('.slt-banner ol li').eq(0).addClass('current').siblings().removeClass('current');
+            } else {
+                $('.slt-banner ol li').eq(num).addClass('current').siblings().removeClass('current');
+
+            }
+        }
+
+        timer = setInterval(nextPlay, 2000);
+        //鼠标经过slt-banner，停止定时器,离开则继续播放
+        $('.slt-banner').mouseenter(function () {
+            clearInterval(timer);
+            //左右箭头显示(淡入)
+            $('.slt-banner i').fadeIn();
+        }).mouseleave(function () {
+            timer = setInterval(nextPlay, 2000);
+            //左右箭头隐藏(淡出)
+            $('.slt-banner i').fadeOut();
+        });
+        //播放下一张
+        $('.slt-banner .right').click(function () {
+            nextPlay();
+        });
+        //返回上一张
+        $('.slt-banner .left').click(function () {
+            prevPlay();
+        });
+    });
+</script>
+<script>
+
+if (getCookie('mode') == null){
+    setMode("light");
+}
+else{
+    setMode(getCookie('mode'));
+}
+document.querySelector(".btn").addEventListener("click", (e) => {
+    setMode(e.target.getAttribute("mode"));
+    setCookie('mode',e.target.getAttribute("mode"));
+
+})
+
+</script>
+</body>
+</html>

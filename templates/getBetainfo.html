@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>getbetainfo</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/getbetainfo.css">
+        <script src="../static/js/getbetainfo.js"></script>
+    <script src="../static/js/jquery-1.11.0.min.js"></script>
+
+
+</head>
+<body>
+<div class="logo">
+<img src="../static/img/logo.png">
+
+</div>
+<div class="container">
+<div class="son">
+<form class="form-inline" action="" method="post" enctype="application/x-www-form-urlencoded">
+  <div class="form-group">
+    <label for="exampleInputName2">Name: </label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" name="name"  required oninvalid="setCustomValidity('不能为空')" oninput="setCustomValidity('')">
+  </div>
+    <div class="form-group">
+    <label for="exampleInputName2">Program Name: </label>
+    <input type="text" class="form-control" id="exampleInputName2" placeholder="Jane Doe" name="ProgramName" required oninvalid="setCustomValidity('不能为空')" oninput="setCustomValidity('')">
+  </div>
+
+    <div class="a">
+        <label for="exampleInputName3">Trainee Status:</label>
+        <br>
+        <select class="form-control" name="TraineeStatus">
+          <option>Medical Student</option>
+          <option>Intern/Resident</option>
+          <option>Cardiology </option>
+          <option>Fellow</option>
+          <option>Subspecialty </option>
+          <option>Fellow </option>
+          <option>Other </option>
+        </select>
+    </div>
+    <div class="b">
+     <label for="exampleInputName"> If Other, please specify: </label>
+    <br>
+    <input type="text" class="form-control" placeholder="Text input" id="exampleInputName" name="other">
+    </div>
+    <div class="c">
+  <div class="form-group">
+    <label for="inputEmail3" class="col-sm-2 control-label">Email:</label>
+    <div class="col-sm-10">
+      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="Email" required oninvalid="setCustomValidity('不能为空')" oninput="setCustomValidity('')">
+    </div>
+  </div>
+    </div>
+  <button type="submit" class="btn btn-default">Submit information</button>
+
+</form>
+   {%if user.is_superuser%}
+    <a href="../static/betainfo/betainfo.xls" download >Download Tester information</a>
+       {%endif%}
+    </div>
+    </div>
+<script>
+
+
+</script>
+</body>
+</html>

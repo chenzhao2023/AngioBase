@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+  <script src="../static/layui/layui.js"></script>
+    <link rel="stylesheet" href="../static/js/theme.js">
+    <style type="text/css">
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font: 16px/20px microsft yahei;
+
+         }
+        .wrap {
+            width: 80%;
+            height: 80%;
+            padding: 10% 0;
+            position: fixed;
+            opacity: 0.8;
+            background: linear-gradient(to bottom right,white,#ed5a65 );
+            background: -webkit-linear-gradient(to bottom right,#50a3a2,#53e3a6);
+        }
+        .container {
+            width: 60%;
+            margin: 0 auto;
+        }
+        .container h1 {
+            text-align: center;
+            color: red;
+            font-weight: 500;
+        }
+        .container input {
+            width: 320px;
+            display: block;
+            height: 36px;
+            border: 0;
+            outline: 0;
+            padding: 6px 10px;
+            line-height: 24px;
+            margin: 32px auto;
+            -webkit-transition: all 0s ease-in 0.1ms;
+            -moz-transition: all 0s ease-in 0.1ms;
+            transition: all 0s ease-in 0.1ms;
+        }
+        .container input[type="text"] , .container input[type="password"]  {
+            background-color: #FFFFFF;
+            font-size: 16px;
+            color: #50a3a2;
+        }
+        .container input[type='submit'] {
+            font-size: 16px;
+            letter-spacing: 2px;
+            color: #666666;
+            background-color: #FFFFFF;
+        }
+        .container input:focus {
+            width: 400px;
+        }
+        .container input[type='submit']:hover {
+            cursor: pointer;
+            width: 400px;
+        }
+        .to_register{
+            color: #a7c4c9;
+        }
+        .text{
+            color: #e2dfe4;
+        }
+        .wrap ul {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -20;
+        }
+        .wrap ul li {
+            list-style-type: none;
+            display: block;
+            position: absolute;
+            bottom: -120px;
+            width: 15px;
+            height: 15px;
+            z-index: -8;
+            border-radius: 50%;
+            box-shadow: inset -30px -30px 75px rgba(0, 0, 0, .2),
+            inset 0px 0px 5px rgba(0, 0, 0, .5),
+            inset -3px -3px 5px rgba(0, 0, 0, .5),
+            0 0 20px rgba(255, 255, 255, .75);
+            background-color:rgba(255, 255, 255, 0.15);
+            animotion: square 25s infinite;
+            -webkit-animation: square 25s infinite;
+        }
+        .wrap ul li:nth-child(1) {
+            left: 0;
+            animation-duration: 10s;
+            -moz-animation-duration: 10s;
+            -o-animation-duration: 10s;
+            -webkit-animation-duration: 10s;
+        }
+        .wrap ul li:nth-child(2) {
+            width: 40px;
+            height: 40px;
+            left: 10%;
+            animation-duration: 15s;
+            -moz-animation-duration: 15s;
+            -o-animation-duration: 15s;
+            -webkit-animation-duration: 11s;
+        }
+        .wrap ul li:nth-child(3) {
+            left: 20%;
+            width: 25px;
+            height: 25px;
+            animation-duration: 12s;
+            -moz-animation-duration: 12s;
+            -o-animation-duration: 12s;
+            -webkit-animation-duration: 12s;
+        }
+        .wrap ul li:nth-child(4) {
+            width: 50px;
+            height: 50px;
+            left: 30%;
+            -webkit-animation-delay: 3s;
+            -moz-animation-delay: 3s;
+            -o-animation-delay: 3s;
+            animation-delay: 3s;
+            animation-duration: 12s;
+            -moz-animation-duration: 12s;
+            -o-animation-duration: 12s;
+            -webkit-animation-duration: 12s;
+        }
+        .wrap ul li:nth-child(5) {
+            width: 60px;
+            height: 60px;
+            left: 40%;
+            animation-duration: 10s;
+            -moz-animation-duration: 10s;
+            -o-animation-duration: 10s;
+            -webkit-animation-duration: 10s;
+        }
+        .wrap ul li:nth-child(6) {
+            width: 75px;
+            height: 75px;
+            left: 50%;
+            -webkit-animation-delay: 7s;
+            -moz-animation-delay: 7s;
+            -o-animation-delay: 7s;
+            animation-delay: 7s;
+        }
+        .wrap ul li:nth-child(7) {
+            left: 60%;
+            width: 30px;
+            height: 30px;
+            animation-duration: 8s;
+            -moz-animation-duration: 8s;
+            -o-animation-duration: 8s;
+            -webkit-animation-duration: 8s;
+        }
+        .wrap ul li:nth-child(8) {
+            width: 90px;
+            height: 90px;
+            left: 70%;
+            -webkit-animation-delay: 4s;
+            -moz-animation-delay: 4s;
+            -o-animation-delay: 4s;
+            animation-delay: 4s;
+        }
+        .wrap ul li:nth-child(9) {
+            width: 50px;
+            height: 50px;
+            left: 80%;
+            animation-duration: 20s;
+            -moz-animation-duration: 20s;
+            -o-animation-duration: 20s;
+            -webkit-animation-duration: 20s;
+        }
+        .wrap ul li:nth-child(10) {
+            width: 75px;
+            height: 75px;
+            left: 90%;
+            -webkit-animation-delay: 6s;
+            -moz-animation-delay: 6s;
+            -o-animation-delay: 6s;
+            animation-delay: 6s;
+            animation-duration: 30s;
+            -moz-animation-duration: 30s;
+            -o-animation-duration: 30s;
+            -webkit-animation-duration: 30s;
+        }
+        @keyframes square {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0)
+            }
+            100% {
+                bottom: 400px;
+                -webkit-transform: translateY(-500);
+                transform: translateY(-500)
+            }
+        }
+        @-webkit-keyframes square {
+            0% {
+                -webkit-transform: translateY(0);
+                transform: translateY(0)
+            }
+            100% {
+                bottom: 400px;
+                -webkit-transform: translateY(-500);
+                transform: translateY(-500)
+            }
+        }
+    </style>
+</head>
+<body>
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+{#            {% if user.is_authenticated %}#}
+{#            <u class="logo pull-right"> <a href="{% url 'logout1' %}">Log Out </a></u>#}
+{##}
+{#            {% else %}#}
+{#            <u class="logo pull-right"> <a href="{% url 'login1' %}">Log In </a></u>#}
+{##}
+{#            <u class="logo pull-right"> <a href="{% url 'register1' %}">Register </a></u>#}
+{#            {% endif %}#}
+            <ul class="nav-list pull-right">
+                <li ><a href="{% url 'myhome_index' %}">Home </a></li>
+                <li class="active"><a href="{% url 'vessel_name_ide' %}">Vessel Identification <span class="sr-only">(current)</span></a></li>
+                <li><a href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+<div id="out">
+
+    <div id="outB">
+{##}
+{#        <div class="news-left pull-left" style="margin-top: 30px">#}
+{#            <div class="this-news">ICA Vessel Identification</div>#}
+{#            <ul class="news-menu">#}
+{#                <li class="active" ><a href="{% url 'vessel_name_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Name</a></li>#}
+{#                <li ><a href="{% url 'vessel_contour_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Contour</a></li>#}
+{#                <li ><a href="{% url 'All_Message2' %}"><span class="glyphicon glyphicon-play">Message</span></a></li>#}
+{#            </ul>#}
+{#        </div>#}
+        <div class="news-right pull-left" style="margin-top: 30px;margin-left: 100px">
+            <div class="wrap">
+    <div class="container" >
+        <h1 style="color: white; margin: 0; text-align: center">log in</h1>
+        <form action="" method="post">
+        {% csrf_token %}
+            <input type="text" id="id_username" name="username" placeholder="username" required autofocus>
+        <input type="password" id="inputPassword" class="form-control" name="password" placeholder="password" required>
+            <input type="submit" value="log in"/>
+{#             <button class="btn btn-primary btn-block" type="submit">log in</button>#}
+            <p class="change_link" style="text-align: center">
+                <span class="text">not a member ?</span>
+                <a href="{% url 'register1' %}" class="to_register">go to register</a>
+            </p>
+    </form>
+    </div>
+    <ul>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+        <li></li>
+    </ul>
+</div>
+                        </div>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="addForm" style="display: none;" align="center">
+    <form class="layui-form" style="margin: 20px" method="POST">
+      <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 130px">Please select the vessel name：</label>
+        <div class="layui-input-block" style="width: 130px">
+          <select id="xueguan" name="xueguan" lay-verify="required">
+            <option value="">Select: </option>
+            <option value="LAD">LAD</option>
+            <option value="D1">D1</option>
+            <option value="D2">D2</option>
+            <option value="Sep1">Sep1</option>
+            <option value="Sep2">Sep2</option>
+            <option value="Sep3">Sep3</option>
+            <option value="LCX">LCX</option>
+            <option value="OM1">OM1</option>
+            <option value="OM2">OM2</option>
+            <option value="LMA">LMA</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block" style="margin-left: 0px;">
+          <button class="layui-btn" lay-submit lay-filter="formDemo">Submit</button>
+          <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+        </div>
+      </div>
+    </form>
+</div>
+<div id="addRight" style="display: none;" align="center">
+    <div>
+        <img src="../static/img/right.png" style="width: 50px;height: 50px">You are right!
+    </div>
+    <img id="rightImg" style="width:512px;height:512px;">
+
+</div>
+<div id="addError" style="display: none;" align="center">
+    <div>
+        <img src="../static/img/error.png" style="width: 50px;height: 50px">Sorry, the name you chose is wrong, please choose again!
+    </div>
+    <img id="errorImg" style="width:512px;height:512px;">
+</div>
+
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="../static/js/mainPageJs.js"></script>
+<script src="../static/js/Download.js"></script>
+<script>
+    var point_url = {% url "point_details" %}
+    var get_patient_path_url = {% url "patient_path" %}
+    var get_add_url = {% url "get_add" %}
+</script>
+</body>
+</html>

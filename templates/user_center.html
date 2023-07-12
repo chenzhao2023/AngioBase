@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>User Center</title>
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" href="../static/css/option.css">
+
+    <link rel="stylesheet" href="/static/css3/font-awesome.min.css">
+    <link rel="stylesheet" href="/static/css3/style-index.css">
+    <link rel="stylesheet" href="/static/css3/style-shopping.css">
+    <link rel="stylesheet" href="/static/css3/basic.css">
+    <link rel="stylesheet" href="/static/css3/style-self.css">
+    <link rel="shortcut icon" href="/static/images/favicon.ico">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <script src="../static/js3/jQuery.min.js"></script>
+    <script src="../static/js3/index.js"></script>
+    <script src="../static/js/theme.js"></script>
+
+</head>
+
+
+
+<body>
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+            <div class="logo pull-right">
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Option</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user_center' %}">user_center</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout1' %}">logout</a>
+                        {% else %}
+                            <a href="{% url 'login1' %}">login</a>
+                        {% endif %}
+
+                        <a href="{% url 'register1' %}">register</a>
+                    {%if user.is_superuser%}
+                     <a href="{% url 'Beta_info' %}">Tester information </a>
+                        {%endif%}
+
+
+                    </div>
+                </div>
+                <div class="btn">
+                                    <button mode="light" class="el-button el-button--primary">Light</button>
+                                    <button mode="read" class="el-button el-button--success">Read</button>
+                                    <button mode="dark" class="el-button el-button--warning">Dark</button>
+                </div>
+
+
+            </div>
+
+
+            <ul class="nav-list pull-right">
+                <li class="active"><a href="{% url 'myhome_index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li><a class="text" href="{% url 'vessel_name_ide' %}">Vessel Identification</a></li>
+                <li><a class="text" href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+    <div class="contain">
+        <div class="con w">
+            <div class="user_nav">
+                <div class="user_head">
+                    {% if user.userform.gender == '1' %}
+                    <img src="/static/touxiang/1.png" alt="">
+                    {% elif user.userform.gender == '0' %}
+                    <img src="/static/touxiang/2.png" alt="">
+                    {% else %}
+                        <img src="/static/touxiang/3.png" alt="">
+                    {% endif %}
+{#                    <strong>未认证</strong>#}
+                </div>
+                <div class="nav_left">
+                    <ul>
+                        {% if request.user.is_superuser %}
+                            <li><a href="{% url 'admin:index' %}" ><i class="fa fa-server" aria-hidden="true"></i>&nbsp;Admin</a></li>
+                            <li><a href="{% url 'add_question' %}"><i class="fa fa-keyboard-o" aria-hidden="true"></i>&nbsp;Add Question</a></li>
+                            <li><a href="{% url 'all_question_addmin' %}?page=1" ><i class="fa fa-server" aria-hidden="true"></i>&nbsp;All Questions</a></li>
+                        {% endif %}
+                    <li><a href="{% url 'user_center' %}" class="nav_checked" ><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Information</a></li>
+                        <li><a href="{% url 'edit_user' %}"><i class="fa fa-refresh" aria-hidden="true"></i>&nbsp;Edit</a></li>
+                        <li><a href="{% url 'change_password' %}"><i class="fa fa-keyboard-o" aria-hidden="true"></i>&nbsp;Password</a></li>
+
+        <br>
+
+                    </ul>
+                </div>
+
+            </div>
+            <div class="user_text">
+                <h2>Userinfo&nbsp;|&nbsp;Information</h2>
+                <div class="user_info">
+                    <h3><strong>Username：</strong><a>{{ user.username }}</a></h3>
+                    <h3><strong>Nickname：</strong><a>{{ user.userform.nickname }}</a></h3>
+                    <h3><strong>Email</strong><a>{{ user.email }}</a></h3>
+                   {% if user.userform.gender == '1' %}
+                    <h3><strong>Gender</strong><a>Male</a></h3>
+                    {% elif user.userform.gender == '0' %}
+                   <h3><strong>Gender</strong><a>Female</a></h3>
+                   {% else %}
+                   <h3><strong>Gender</strong><a>Unknown</a></h3>
+                    {% endif %}
+
+
+
+                </div>
+
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+    </div>
+
+</div>
+
+<script src="../static/js/Download.js"></script>
+
+
+</body>
+
+</html>

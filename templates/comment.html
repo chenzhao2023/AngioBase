@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Signin Template for Bootstrap</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="/static/css/bootstrap.min.css" rel="stylesheet">
+<style>
+        #tb {
+            width: 200px;
+            border: 2px solid black;
+        }
+    </style>
+</head>
+
+<body>
+
+
+<nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">judgeOL</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">judgeOL</a>
+            <a class="navbar-brand" href="{% url 'All_Message' %}">Problems</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav navbar-right">
+                {% if user_name %}
+                    <span class="navbar-brand"> welcome: {{ user_name }}</span>
+                {% else %}
+                    <a href="{% url 'login1' %}">
+                        <button class="btn btn-primary btn-lg" >Sign in</button>
+                    </a>
+                    <a href="{% url 'register1' %}">
+                        <button class="btn btn-default btn-lg">Sign up</button>
+                    </a>
+                {% endif %}
+            </ul>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row">
+        <br><br><br><br>
+        <div class="col-md-8 col-md-offset-2 main">
+
+            <h1>Discussions List : {{ message.title }}</h1>
+                 <h2>{{ message.content }}</h2>
+            <hr/>
+
+        <form action="{% url 'comment' message.id 0 %}" method="get">
+  <p><input type="text" name="content" /></p>
+  <input type="submit" class="btn btn-info"value="Make a comment" />
+</form>
+{#            <a href="{% url 'comment' message.id 0 %}">#}
+{#                     <tr>#}
+{#                        <td>#}
+{#                            评论：#}
+{#                        </td>#}
+{#                        <td>#}
+{#                            <textarea id="txt"></textarea>#}
+{#                        </td>#}
+{#                    </tr>#}
+{#                <button type="button" class="btn btn-info">New Discussion</button>#}
+{#            </a>#}
+            <hr/>
+            {%  if comments %}
+                {% for comment in comments %}
+                    <a href="#"
+                       class="package list-group-item" style="margin-bottom: 10px">
+                        <div class="row">
+                            <div class="col-md-8">
+                                <h3 class=package-name>{{ comment.username }}</h3>
+                                <hr>
+
+                                <p class=package-description>{{  comment.content }}</p>
+
+{#                                <div>#}
+{#                                    <span><i class="glyphicon glyphicon-star"></i>3</span>#}
+{##}
+{#                                    <span><i class="glyphicon glyphicon-eye-open"></i>4</span>#}
+{#                                </div>#}
+                            </div>
+
+                            <div class="col-md-4">
+                                <h4><span class="label-middle"><i class="glyphicon glyphicon-time"></i> {{comment.create_time }}</span></h4>
+                                <h4><span><i class="glyphicon glyphicon-user"></i> {{ comment.username }}</span></h4>
+                                <h4><span><i class="glyphicon glyphicon-globe"></i> {{ comment.id }}</span></h4>
+                            </div>
+                        </div>
+                    </a>
+                {% endfor %}
+            {% endif %}
+            <hr/>
+
+
+        </div>
+    </div>
+</div>
+
+
+
+</div> <!-- /container -->
+</body>
+<script src="Scripts/jquery-1.11.3.js"></script>
+    <script>
+        //文档就绪函数
+        $(function () {
+            //按钮点击事件
+            $("#btn1").click(function () {
+                var message = $("<tr><td>" + $("#name").val() + "</td><td>" + $("#txt").val() + "</td></tr>");
+                $("#tb").append(message);
+            });
+        });
+    </script>
+</html>

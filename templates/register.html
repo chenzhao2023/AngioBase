@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>AngioBase</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/mainPageC.css">
+  <script src="../static/layui/layui.js"></script>
+    <style type="text/css">
+	body,input{
+		margin: 0;
+		padding: 0;
+		background: white;
+	}
+	input{
+		display: inline-block;
+		background: #fff;
+	}
+	.xiao-container{
+		width: 100%;
+	}
+	.xiao-register-box{
+		position: relative;
+		height: 800px;
+		width: 800px;
+		top: 50px;
+		margin: 0 auto;
+		z-index: 99999;
+		background:#ffffff;
+		border: 7px solid #ccc;
+	}
+	.xiao-title-box{
+		position: absolute;
+		width: 300px;
+		height: 50px;
+		margin-left: 250px;
+		margin-top: 5px;
+		text-align: center;
+		font-size: 28px;
+		font-weight: 800;
+		color: #ff5000;
+		line-height: 50px;
+	}
+	.xiao-username-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:100px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-username-input{
+		cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+		/*background: green;*/
+	}
+	#username{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userPassword-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:180px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userPassword-input{
+		cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+	}
+	#userPassword{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userRePassword-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:260px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userRePassword-input{
+		cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+	}
+	#userRePassword{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userPhone-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:340px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userPhone-input{
+		cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+	}
+	#userPhone{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+	.xiao-userEmail-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:420px;
+		margin-left:80px;
+		font-weight: 700;
+	}
+	.xiao-userEmail-input{
+		cursor: pointer;
+        display: inline-block;
+        padding: 3px 6px;
+        text-align: right;
+        width: 150px;
+        vertical-align: top;
+	}
+	#userEmail{
+		height: 35px;
+		width: 290px;
+		border: 2px solid #ccc;
+		border-radius: 5px;
+	}
+
+	.xiao-userGender-box{
+		position: absolute;
+		width: 420px;
+		height: 40px;
+		line-height: 40px;
+		margin-top:500px;
+		margin-left:82px;
+		font-weight: 700;
+	}
+	.xiao-userGender-input{
+		display: inline-block;
+		margin-left: 62px;
+	}
+	.xiao-require{
+		color: red;
+	}
+	.xiao-submit-box{
+		position:absolute;
+		width: 80px;
+		height: 40px;
+		line-height: 40px;
+		margin-top: 580px;
+		margin-left:200px;
+		border-radius: 5px;
+		background: grey;
+	}
+	#xiao-submit-button{
+		display: inline-block;
+		width: 80px;
+		height: 40px;
+		border-radius: 5px;
+		background: red;
+	}
+	.xiao-goLogin-box{
+		position:absolute;
+		width: 150px;
+		height: 20px;
+		margin-top: 600px;
+		margin-left:320px;
+
+	}
+
+	</style>
+</head>
+<body>
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+{#            {% if user.is_authenticated %}#}
+{#            <u class="logo pull-right"> <a href="{% url 'logout1' %}">Log Out </a></u>#}
+{##}
+{#            {% else %}#}
+{#            <u class="logo pull-right"> <a href="{% url 'login1' %}">Log In </a></u>#}
+{##}
+{#            <u class="logo pull-right"> <a href="{% url 'register1' %}">Register </a></u>#}
+{#            {% endif %}#}
+            <ul class="nav-list pull-right">
+                <li ><a href="{% url 'myhome_index' %}">Home </a></li>
+                <li class="active"><a href="{% url 'vessel_name_ide' %}">Vessel Identification <span class="sr-only">(current)</span></a></li>
+                <li><a href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+
+<div class="xiao-container">
+		<div class="xiao-register-box">
+			<div class="xiao-title-box">
+				<span>User Registration</span>
+			</div>
+			<form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+				<div class="xiao-username-box">
+					<span class="xiao-require">*</span>
+					<label for="username">User Name</label>
+					<div class="xiao-username-input">
+						<input type="text" id="username" name="username" placeholder="Please enter your username " />
+					</div>
+				</div>
+
+				<div class="xiao-userPassword-box">
+					<span class="xiao-require">*</span>
+					<label for="userPassword">Password</label>
+					<div class="xiao-userPassword-input">
+						<input type="password" id="userPassword" name="password1" placeholder="Please enter a password Length:8-12 characters" />
+					</div>
+				</div>
+
+				<div class="xiao-userRePassword-box">
+				<span class="xiao-require">*</span>
+						<label for="userRePassword">Confirm Password</label>
+					<div class="xiao-userRePassword-input">
+						<input type="password" id="userRePassword" name="password2" placeholder="Please repeat the password" />
+					</div>
+				</div>
+
+				<div class="xiao-userPhone-box">
+					<span class="xiao-require">*</span>
+					<label for="userPhone">Nickname</label>
+					<div class="xiao-userPhone-input">
+						<input type="text" id="userPhone" name="nickname" placeholder="Please enter your nickname" />
+					</div>
+				</div>
+
+				<div class="xiao-userEmail-box">
+					<span class="xiao-require">*</span>
+					<label for="userEmail">Email</label>
+					<div class="xiao-userEmail-input">
+						<input type="text" id="userEmail" name="email" placeholder="Please enter your email address, like: xxxxxx@gmail.com" />
+					</div>
+				</div>
+
+				<div class="xiao-submit-box">
+                    <button id = "xiao-submit-button"  type="submit">Register</button>
+				</div>
+
+				<div class="xiao-goLogin-box">
+					<a href="{% url 'login1' %}" style="text-decoration: none;">Already have an account? Go to login</a>
+				</div>
+			</form>
+            {% if messages %}
+<script>
+        {% for msg in messages %}
+            alert('{{ msg.message }}');
+        {% endfor %}
+    </script>
+{% endif %}
+		</div>
+	</div>
+
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script src="../static/js/mainPageJs.js"></script>
+</body>
+</html>

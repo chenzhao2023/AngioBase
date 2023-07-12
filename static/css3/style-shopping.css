@@ -1,0 +1,169 @@
+.contain1 {
+    float: top;
+    width: 100%;
+    /* height: 700px; */
+    background-color: #f7f7f7;
+
+}
+
+.contain2 {
+    float: top;
+    width: 100%;
+    /* height: 700px; */
+    background-color: #fff;
+}
+.contain .con_nav {
+    margin-bottom: 10px;
+}
+.contain .con_nav ul li a {
+    margin-right: 50px;
+}
+hr {
+    opacity: 0.3;
+    /* color: #fff; */
+}
+
+
+.con_left h1 {
+    color: #000;
+    margin-top: -20px;
+    margin-bottom: -20px;
+}
+
+.con_left {
+    float: top;
+    width: 100%;
+    height: 900px;
+    padding: 50px 0;
+}
+
+.con_left .show1 {
+    margin-top: 50px;
+}
+
+.con_left .show2 {
+    margin-bottom: 50px;
+}
+
+.con_left .show1 li {
+    float: left;
+    width: 218px;
+    height: 238px;
+    border: 0.5px solid rgba(204, 204, 204, 0.479);
+    background-color: #fff;
+}
+
+.con_left .show1 li a {
+    color: #000;
+}
+
+.con_left .show1 li a div {
+    margin: 20px 40px;
+}
+
+.con_left .show1 li a div img {
+    width: 138px;
+    height: 138px;
+    transition: all 0.5s;
+}
+
+.con_left .show1 li a div:hover img {
+    transform: translateY(-10px) scale(1.1);
+}
+
+.con_left .show1 li a i {
+    display: inline-block;
+    font-size: 12px;
+    text-align: left;
+    margin: 5px 5px;
+}
+
+.con_left .show1 li a i:hover {
+    color: #30b300;
+}
+
+.con_left .show1 li a h1 {
+    margin-left: 5px;
+    margin-top: 5px;
+    font-size: 16px;
+    color: #DD2727;
+}
+
+.con_left .show1 li:nth-child(9n+1) {
+    width: 328px;
+    height: 476px;
+    overflow: hidden;
+}
+
+.con_left .show1 li:nth-child(9n+1) span img {
+    width: 330px;
+    height: 476px;
+    margin-top: 0px;
+    margin-left: 0px;
+}
+
+.con_left .show2 li {
+    float: left;
+    width: 300px;
+    height: 200px;
+    border: 0.5px solid rgba(204, 204, 204, 0.479);
+    /* background-color: pink; */
+    overflow: hidden;
+}
+
+.con_left .show2 li a div {
+    position: relative;
+    margin-left: -10px;
+
+}
+
+.con_left .show2 li a div img {
+    width: 300px;
+    height: 200px;
+    transition: all 0.5s;
+}
+
+.con_left .show2 li a div:hover img {
+    transform: translateX(-20px) scale(1.15);
+}
+
+.con_left .show2 li a div span {
+    position: absolute;
+    left: 35px;
+    top: 30px;
+}
+
+.con_left .show2 li a div span i {
+    font-size: 16px;
+}
+
+.con_left .show2 li a div span h4 {
+    font-size: 14px;
+    color: red;
+    margin-top: 5px;
+}
+
+.contain2 .con_left .show1 li {
+    float: right;
+}
+
+
+.contain3 .con_left {
+    height: auto !important;
+    height: 200px;
+    min-height: 200px;
+}
+
+.contain3 .con_left .show1 li {
+    margin-right: 22px;
+}
+
+hr {
+    color: #ccc;
+}
+
+.contain3 .con_left .show1 li:nth-child(9n+1) {
+    width: 218px;
+    height: 238px;
+    overflow: hidden;
+}

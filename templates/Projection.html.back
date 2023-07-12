@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+
+
+<head>
+    <meta charset="UTF-8">
+    <title>AngioBase</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+    <link rel="stylesheet" href="../static/css/option.css">
+    <link rel="stylesheet" href="../static/css/Projection.css">
+    <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/theme.css">
+    <script src="../static/layui/layui.js"></script>
+    <script src="../static/js/theme.js"></script>
+</head>
+
+<body class="main1" >
+<div class="header-nav" >
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+            <div class="logo pull-right">
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Option</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user_center' %}">user_center</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout1' %}">logout</a>
+                        {% else %}
+                            <a href="{% url 'login1' %}">login</a>
+                        {% endif %}
+
+                        <a href="{% url 'register1' %}">register</a>
+                    {%if user.is_superuser%}
+                     <a href="{% url 'Beta_info' %}">Tester information </a>
+                        {%endif%}
+
+
+                    </div>
+                </div>
+                <div class="btn">
+                                    <button mode="light" class="el-button el-button--primary">Light</button>
+                                    <button mode="read" class="el-button el-button--success">Read</button>
+                                    <button mode="dark" class="el-button el-button--warning">Dark</button>
+                </div>
+
+            </div>
+
+
+            <ul class="nav-list pull-right">
+                <li><a class="text"  href="{% url 'myhome_index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="active"><a href="{% url 'vessel_name_ide' %}">Vessel Identification</a></li>
+                <li><a class="text"  href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+{#            <button id="change" class="layui-btn" style= "margin-left: 30px" >change</button>#}
+        </div>
+    </div>
+</div>
+
+<div id="out">
+
+    <div id="outB">
+        <div class="news-left pull-left" style="margin-top: 30px">
+            <div class="this-news">ICA Vessel Identification</div>
+            <ul class="news-menu">
+                <li  ><a href="{% url 'vessel_name_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Name</a></li>
+{#                <li><a href="{% url 'vessel_contour_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Contour</a></li>#}
+                <li><a href="{% url 'vessel_map_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Map</a></li>
+                <li class="active"><a href="{% url 'Projection' %}"><span class="glyphicon glyphicon-play"></span>Projection</a></li>
+                 <li><a href="{% url 'All_Message2' %}?page=1"><span class="glyphicon glyphicon-play"></span>Leave comments</a></li>
+                <li><a href="{% url 'case_uploads' %}"><span class="glyphicon glyphicon-play"></span>Upload labelled case</a></li>
+                <li><a href="{% url 'upload_dicoms' %}"><span class="glyphicon glyphicon-play"></span>Upload dicoms</a></li>
+
+            </ul>
+        </div>
+        <div class="news-right pull-left" style="margin-top: 30px">
+            <div class="guild" style="margin-bottom: 30px">
+                <div class="guild-main pull-left">AngioBase</div>
+                <div class="guild-sub pull-right text-right">
+                    <a href="{% url 'vessel_name_ide' %}">ICA Vessel Identification</a>
+                </div>
+            </div>
+<p> Please select the case you want to view: </p>
+            <div id="big-box"></div>
+
+
+{#                <p id="pLCA"></p>#}
+{#                <p id="pRCA"></p>#}
+            <div style="height: 400px; width:700px;display: inline">
+
+                    <div class='aaa' id="lca" style="display: none"></div>
+                    <div class="bbb" id="rca" style="display: none;margin-left:350px"></div>
+
+            </div>
+
+
+            <div class="text" style="display: none;margin-top: 310px" id="canT" >
+
+                <div class="list-text pull-left">
+                    <div style="height: 400px; width:700px;display: flex;justify-content: center">
+
+                        <div id="border" style=" display: flex;justify-content: space-evenly;align-items: center">
+
+                          <div  style="float: left;margin-bottom:50px">
+                              <h3 id="angle"></h3>
+                              <img id="left_image" src="" alt=""  style="width: 350px; height:350px">
+
+                          </div>
+
+                          <div style="float: right;margin-left:50px">
+                                <img id="right_img"  src="" alt=""  style="width: 350px;height:350px">
+                              <br>
+                              <br>
+                              <button id="pre" type="button" class="btn btn-success">Previous</button>
+                              <button id="next" type="button" class="btn btn-success">Next</button>
+
+                          </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+{#<script src="../static/js/mainPageJs.js"></script>#}
+<script src="../static/js/Projection.js"></script>
+<script src="../static/js/Download.js"></script>
+<script>
+    var get_pro_count_url = {% url "get_pro_count" %}
+</script>
+
+
+
+
+</body>
+</html>

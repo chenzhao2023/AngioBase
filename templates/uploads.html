@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <style type="text/css">
+        .up{
+
+            border: 1px;
+            color: #666;
+
+        }
+         .xzwjbtn{
+             float:left;
+             border-radius:3px;
+             height:25px;
+             line-height:36px;
+             margin-left:10px;
+             background-color:#3379d8;
+             cursor:pointer;
+             align:center;
+             width:50px;
+         }
+        #customFile, #customFile1,#customFile2,#customFile3{
+            width:105px;
+            height:30px;
+            opacity:0;/*透明化  */
+            float:left;
+            z-index:3;
+            position:absolute;
+            left:350px;/*将原来的选择文件的按钮设置透明化，在不断的移动，使之与按钮重合  */
+        }
+    </style>
+    <title>AngioBase</title>
+
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="../static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="../static/css/slt.css">
+        <link rel="stylesheet" href="../static/css/option.css">
+      <link rel="stylesheet" href="../static/css/theme.css">
+    <link rel="stylesheet" href="../static/css//index2.css">
+    <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+    <link rel="stylesheet" href="../static/css/style_board.css">
+
+
+  <script src="../static/layui/layui.js"></script>
+     <script src="../static/js/theme.js"></script>
+</head>
+<body>
+
+<div class="header-nav">
+    <div class="container">
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase</h3>
+            <div class="logo pull-right">
+
+
+                <div class="dropdown">
+                    <button class="dropbtn">Option</button>
+                    <div class="dropdown-content">
+                        <a href="{% url 'user_center' %}">user_center</a>
+                        {% if user.is_authenticated %}
+                            <a href="{% url 'logout1' %}">logout</a>
+                        {% else %}
+                            <a href="{% url 'login1' %}">login</a>
+                        {% endif %}
+
+                        <a href="{% url 'register1' %}">register</a>
+                        {%if user.is_superuser%}
+                     <a href="{% url 'Beta_info' %}">Tester information </a>
+                        {%endif%}
+
+                    </div>
+                </div>
+                <div class="btn">
+                                    <button mode="light" class="el-button el-button--primary">Light</button>
+                                    <button mode="read" class="el-button el-button--success">Read</button>
+                                    <button mode="dark" class="el-button el-button--warning">Dark</button>
+                </div>
+
+            </div>
+
+
+            <ul class="nav-list pull-right">
+                <li><a class="text" href="{% url 'myhome_index' %}">Home <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="active"><a href="{% url 'vessel_name_ide' %}">Vessel Identification</a></li>
+                <li><a class="text" href="{% url 'questionmain' %}">Quiz Bank</a></li>
+                <li><a class="text" id="download" href="">Download</a></li>
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+</div>
+
+
+<div id="out">
+
+    <div id="outB">
+        <div class="news-left pull-left" style="margin-top: 30px">
+            <div class="this-news">ICA Vessel Identification</div>
+            <ul class="news-menu">
+                <li ><a href="{% url 'vessel_name_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel ID</a></li>
+{#                <li ><a href="{% url 'vessel_contour_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel Contour</a></li>#}
+                <li><a href="{% url 'vessel_map_ide' %}"><span class="glyphicon glyphicon-play"></span>Vessel ID Tutor</a></li>
+                <li ><a href="{% url 'Projection' %}"><span class="glyphicon glyphicon-play"></span>Projection</a></li>
+                <li><a href="{% url 'All_Message2' %}?page=1"><span class="glyphicon glyphicon-play"></span>Message</a></li>
+                <li class="active"><a href="{% url 'case_uploads' %}"><span class="glyphicon glyphicon-play"></span>Upload labelled case</a></li>
+                <li><a href="{% url 'upload_dicoms' %}"><span class="glyphicon glyphicon-play"></span>Upload dicoms</a></li>
+
+            </ul>
+        </div>
+        <div class="news-right pull-left" style="margin-top: 30px">
+             <div class="main-bothside">
+                        <form action="{% url 'case_uploads' %}" method="post" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <div class="custom-file form-left-choose">
+                                <p>LAO.png</p>
+                                <div id="file" class="up">
+                                    <input type="file" name="png1" multiple="true" class="custom-file-input" id="customFile"
+                                           required=""
+                                           accept="image/png, image/jpeg, image/gif, image/jpg" onchange="changepic(this)">
+                                    <a id="xzwjbtn" href="javascript:void(0)" class="easyui-linkbutton xzwjbtn">select</a>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                    <input type="text" id="filete" name="filename" class="easyui-validatebox xzwj" style="width:180px;height:25px;margin-left:10px;padding-left:5px;"/>
+                                </div>
+
+{#                                <label for="customFile" class='btn btn-success'>选择图片</label>#}
+                            </div>
+                            <br>
+                            <br>
+                             <div class="custom-file form-left-choose">
+                                 <p>RAO.png</p>
+                                <div id="file" class="up">
+                                    <input type="file" name="png2" multiple class="custom-file-input" id="customFile1"
+                                           required=""
+                                           accept="image/png, image/jpeg, image/gif, image/jpg" onchange="changepic1(this)">
+                                    <a id="xzwjbtn" href="javascript:void(0)" class="easyui-linkbutton xzwjbtn">select</a>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                    <input type="text" id="filete1" name="filename" class="easyui-validatebox xzwj" style="width:180px;height:25px;margin-left:10px;padding-left:5px;"/>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                </div>
+
+{#                                <label for="customFile" class='btn btn-success'>选择图片</label>#}
+                            </div>
+                            <br>
+                            <br>
+                             <div class="custom-file form-left-choose">
+                                 <p>LAO.json</p>
+                                <div id="file" class="up">
+                                    <input type="file" name="json1" multiple class="custom-file-input" id="customFile2"
+                                           required=""
+                                           accept="json/json" onchange="changepic2(this)">
+                                    <a id="xzwjbtn" href="javascript:void(0)" class="easyui-linkbutton xzwjbtn">select</a>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                    <input type="text" id="filete2" name="filename" class="easyui-validatebox xzwj" style="width:180px;height:25px;margin-left:10px;padding-left:5px;" readonly="true"/>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                </div>
+
+{#                                <label for="customFile" class='btn btn-success'>选择图片</label>#}
+                            </div>
+                            <br>
+                            <br>
+                             <div class="custom-file form-left-choose">
+                                 <p>RAO.json</p>
+                                <div id="file" class="up">
+                                    <input type="file" name="json2" multiple class="custom-file-input" id="customFile3"
+                                           required=""
+                                           accept="json/json" onchange="changepic3(this)">
+                                    <a id="xzwjbtn" href="javascript:void(0)" class="easyui-linkbutton xzwjbtn">select</a>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                    <input type="text" id="filete3" name="filename" class="easyui-validatebox xzwj" style="width:180px;height:25px;margin-left:10px;padding-left:5px;" readonly="true"/>
+{#                                    <img src="/static/images/load.png" id="show" width="50px">#}
+                                </div>
+
+{#                                <label for="customFile" class='btn btn-success'>选择图片</label>#}
+                            </div>
+                            <br>
+                            <input type="submit" value="Submit">
+                        </form>
+                    </div>
+
+        </div>
+    </div>
+</div>
+
+
+
+<script src="../static/js/jquery-1.11.0.min.js"></script>
+<script src="../static/js/bootstrap.min.js"></script>
+<script src="../static/js/Download.js"></script>
+
+
+ <script>
+      function changepic() {
+         var reads = new FileReader();
+         f = document.getElementById('customFile').files[0];
+         console.log(f.name)
+         reads.readAsDataURL(f);
+         reads.onload = function (e) {
+             console.log(this.result)
+             $("#filete").val(f.name);
+
+         };
+      }
+      function changepic1() {
+         var reads = new FileReader();
+         f = document.getElementById('customFile1').files[0];
+         console.log(f.name)
+         reads.readAsDataURL(f);
+         reads.onload = function (e) {
+             console.log(this.result)
+             $("#filete1").val(f.name);
+
+         };
+      }
+      function changepic2() {
+         var reads = new FileReader();
+         f = document.getElementById('customFile2').files[0];
+         console.log(f.name)
+         reads.readAsDataURL(f);
+         reads.onload = function (e) {
+             console.log(this.result)
+             $("#filete2").val(f.name);
+
+         };
+      }
+      function changepic3() {
+         var reads = new FileReader();
+         f = document.getElementById('customFile3').files[0];
+         console.log(f.name)
+         reads.readAsDataURL(f);
+         reads.onload = function (e) {
+             console.log(this.result)
+             $("#filete3").val(f.name);
+
+         };
+      }
+   </script>
+
+</body>
+</html>

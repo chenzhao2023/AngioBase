@@ -1,0 +1,72 @@
+
+body{
+    background: #0C0C0C;
+}
+label{
+    color: #2196F3;
+}
+img
+{
+    width: 100px;
+    height: 100px;
+    float: left;
+    margin-top: -100px;
+    margin-left: 670px;
+}
+/* 父容器样式 */
+
+    .container{
+        margin-top: 100px;
+      height: 500px;
+        width: 600px;
+
+
+      /* padding: 1px; */
+    }
+    /* 子容器样式 */
+    .son{
+      width: 400px;
+      height: 500px;
+
+
+      /* 水平垂直居中 */
+      margin-top: 20px;
+        margin-left: 150px;
+    }
+    .form-group{
+        width: 200px;
+        height: 85px;
+    }
+    .col-sm-2,.col-sm-10 {
+        width: 216.666667%;
+        padding-left: 0;
+    }
+    .a{
+
+    }
+    .b{
+        margin-top: 20px;
+    }
+    .c{
+        margin-top: 20px;
+    }
+  a {
+      display: block;
+      text-decoration: none;
+      width: 117px;
+      height: 33px;
+      background-color: #F5F5F5;
+      text-align: center;
+      line-height: 32px;
+      color: black;
+      border-radius: 2px;
+      font-size: 14px;
+      border-width: 1px;
+      border-style: solid;
+      border-color: #5cb85c;
+      margin-top: -33px;
+      float: left;
+      margin-left: 200px;
+
+
+  }

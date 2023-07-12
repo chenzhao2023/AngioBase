@@ -1,0 +1,185 @@
+
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+<title>在线考试</title>
+<link href="static/css/main.css" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/iconfont.css'" rel="stylesheet" type="text/css" />
+<link href="{% static 'css/test.css' %}" rel="stylesheet" type="text/css" />
+
+<style>
+.hasBeenAnswer {
+	background: #5d9cec;
+	color:#fff;
+}
+
+</style>
+</head>
+
+<body>
+	<div class="main">
+		<!--nr start-->
+		<div class="test_main">
+			<div class="nr_left">
+				<div class="test">
+					<form action="" method="post">
+						    {% csrf_token %}
+						{#循环读出所有的试题#}
+
+						<div class="test_title">
+<!-- 							<p class="test_time">
+								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">02:00</b>
+							</p> -->
+							<font><input type="submit" name="exam" value="交卷"></font>
+						</div>
+
+							<div class="test_content">
+								<h1 style="position: relative" >欢迎进入测试^_^</h1>
+								<div class="test_content_title">
+
+									<h2>单选题</h2>
+									<p>
+										<span>共</span><i class="content_lit">100</i><span>题，</span><span>合计</span><i class="content_fs">100</i><span>分</span>
+									</p>
+								</div>
+
+							</div>{% for foo in question %}
+							<div class="test_content_nr">
+								<ul>
+									<!-- 这里是循环， -->
+										<li id="qu_0_0">
+											<div class="test_content_nr_tt">
+												<i>1</i><span>(1分)</span><font>{{ foo.statments}}</font><b class="icon iconfont">&#xe881;</b>
+											</div>
+											<div class="test_content_nr_main">
+
+												<ul>
+													<!-- 答案1，是{{ foo.op_A }} name为：{{ foo.id }}，id为{{ foo.id }}-->
+														<li class="option">
+																<input type="radio" class="radioOrCheck" name="{{ foo.id }}"
+																	id="0_answer_{{ foo.id }}_option_1" value="A"
+																/>
+															<label for="0_answer_{{ foo.id }}_option_1">
+																<p class="ue" style="display: inline;">{{ foo.op_A }}</p>
+															</label>
+														</li>
+														<li class="option">
+																<input type="radio" class="radioOrCheck" name="{{ foo.id }}"
+																	id="0_answer_{{ foo.id }}_option_2" value="B"
+																/>
+															<label for="0_answer_{{ foo.id }}_option_2">
+																<p class="ue" style="display: inline;">{{ foo.op_B }}</p>
+															</label>
+														</li>
+														<li class="option">
+																<input type="radio" class="radioOrCheck" name="{{ foo.id }}"
+																	id="0_answer_{{ foo.id }}_option_3" value="C"
+																/>
+															<label for="0_answer_{{ foo.id }}_option_3">
+																<p class="ue" style="display: inline;">{{ foo.op_C }}</p>
+															</label>
+														</li>
+														<li class="option">
+																<input type="radio" class="radioOrCheck" name="{{ foo.id }}"
+																	id="0_answer_{{ foo.id }}_option_4" value="D"
+																/>
+															<label for="0_answer_{{ foo.id }}_option_4">
+																<p class="ue" style="display: inline;">{{ foo.op_D }}</p>
+															</label>
+														</li>
+												</ul>
+											</div>
+										</li>
+
+								</ul>
+							</div>
+						 {% endfor %}
+					</form>
+				</div>
+
+			</div>
+			<div class="nr_right">
+				<div class="nr_rt_main">
+					<div class="rt_nr1">
+						<div class="rt_nr1_title">
+							<h1>
+								<i class="icon iconfont">&#xe692;</i>答题卡
+							</h1>
+							<p class="test_time">
+								<i class="icon iconfont">&#xe6fb;</i><b class="alt-1">02:00</b>
+							</p>
+						</div>
+
+							<div class="rt_content">
+								<div class="rt_content_tt">
+									<h2>单选题</h2>
+									<p>
+										<span>共</span><i class="content_lit">100</i><span>题</span>
+									</p>
+								</div>
+								<div class="rt_content_nr answerSheet">
+									<ul>
+
+											<li><a href="#qu_0_0">1</a></li>
+
+											<li><a href="#qu_0_1">2</a></li>
+
+
+									</ul>
+								</div>
+							</div>
+
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<!--nr end-->
+		<div class="foot"></div>
+	</div>
+
+	<script src="{% static 'js/jquery-1.11.3.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easy-pie-chart.js' %}"></script>
+	<!--时间js-->
+	<script src="{% static 'js/jquery.countdown.js' %}"></script>
+	<script>
+		window.jQuery(function($) {
+			"use strict";
+
+			$('time').countDown({
+				with_separators : false
+			});
+			$('.alt-1').countDown({
+				css_class : 'countdown-alt-1'
+			});
+			$('.alt-2').countDown({
+				css_class : 'countdown-alt-2'
+			});
+
+		});
+
+
+		$(function() {
+			$('li.option label').click(function() {
+			debugger;
+				var examId = $(this).closest('.test_content_nr_main').closest('li').attr('id'); // 得到题目ID
+				var cardLi = $('a[href=#' + examId + ']'); // 根据题目ID找到对应答题卡
+				// 设置已答题
+				if(!cardLi.hasClass('hasBeenAnswer')){
+					cardLi.addClass('hasBeenAnswer');
+				}
+
+			});
+		});
+	</script>
+<div style="text-align:center;">
+
+</div>
+
+<center><script type="text/javascript"> (function() { var s = "_" + Math.random().toString(36).slice(2); document.write('<div style="" id="' + s + '"></div>'); (window.slotbydup = window.slotbydup || []).push({ id: "u4923786", container:  s }); })(); </script><script type="text/javascript" src="//cpro.baidustatic.com/cpro/ui/c.js" async="async" defer="defer" ></script></center>
+</body>
+
+</html>

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="UTF-8">
+    <title>AngioBase</title>
+	<meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no">
+    <link rel="stylesheet" href="/static/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/slt.css">
+    <meta charset="utf-8">
+  <link rel="stylesheet" type="text/css" href="../static/layui/css/layui.css">
+  <script src="../static/layui/layui.js"></script>
+  <style>
+    #border{
+      width: 950px;
+      height: 500px;
+      border: 1px solid darkgrey;
+      display: flex;
+      flex-direction: row;
+      justify-content: space-around;
+      align-items: center;
+    }
+    #myCanvas{
+      width: 512px;
+      height: 512px;
+      background-image: url('../static/img/42.png');
+      background-size: 512px 512px;
+    }
+    #myCanvas2{
+      width: 512px;
+      height: 512px;
+      background-image: url('../static/img/56.png');
+      background-size: 512px 512px;
+    }
+  </style>
+</head>
+<body>
+
+        <div class="top">
+            <h3 class="logo pull-left">AngioBase ——</h3>
+
+            <ul class="nav-list pull-middle">
+
+
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+
+
+
+
+    <div class="news-left pull-left">
+        <div class="this-news">ICA Vessel Identification</div>
+        <ul class="news-menu">
+            <li class="active" ><a href="{% url 'news' %}"><span class="glyphicon glyphicon-play"></span>Vessel Identification</a></li>
+
+        </ul>
+    </div>
+    <div class="news-right pull-left">
+        <div class="guild">
+            <div class="guild-main pull-left">AngioBase</div>
+            <div class="guild-sub pull-right text-right">
+                <a href="{% url 'news' %}">ICA Vessel Identification</a>
+            </div>
+        </div>
+        <div class="text">
+            <div class="list-text pull-left">
+             <div style="height: 700px; display: flex;justify-content: center;align-items: center">
+    <div id="border">
+      <div>
+        <canvas id="myCanvas"></canvas>
+      </div>
+      <div>
+        <canvas id="myCanvas2"></canvas>
+      </div>
+    </div>
+  </div>
+  <div id="addForm" style="display: none;" align="center">
+    <form class="layui-form" style="margin: 20px" method="POST">
+      <div class="layui-form-item">
+        <label class="layui-form-label" style="width: 130px">Please select the vessel name：</label>
+        <div class="layui-input-block" style="width: 130px">
+          <select id="xueguan" name="xueguan" lay-verify="required">
+            <option value="">Select: </option>
+            <option value="LAD">LAD</option>
+            <option value="D1">D1</option>
+            <option value="D2">D2</option>
+            <option value="Sep1">Sep1</option>
+            <option value="Sep2">Sep2</option>
+            <option value="Sep3">Sep3</option>
+            <option value="LCX">LCX</option>
+            <option value="OM1">OM1</option>
+            <option value="OM2">OM2</option>
+            <option value="LMA">LMA</option>
+          </select>
+        </div>
+      </div>
+      <div class="layui-form-item">
+        <div class="layui-input-block" style="margin-left: 0px;">
+          <button class="layui-btn" id="submit">Submit</button>
+          <button type="reset" class="layui-btn layui-btn-primary">Reset</button>
+        </div>
+      </div>
+    </form>
+  </div>
+        </div>
+    </div>
+ </div>
+
+
+<script src="/static/js/jquery-1.11.0.min.js"></script>
+<script src="/static/js/bootstrap.min.js"></script>
+<script type="text/javascript">
+    $('.nav-list li').hover(function() {
+        $(this).children('.subnav').css('display', 'block');
+    }, function() {
+        $(this).children('.subnav').css('display', 'none');
+    });
+</script>
+<script>
+  layui.use(['layer','form'],function (){
+    var layer = layui.layer,
+        form = layui.form,
+        $ = layui.$;
+    var canvas = document.getElementById('myCanvas');
+    canvas.onmousedown = function(evt) {
+      evt = window.event || evt;
+      //获取canvas相对于浏览器圆点的坐标
+      // var rect = canvas.getBoundingClientRect();
+      //获取圆心的位置
+      //获取鼠标在canvas上的位置
+      // arcX = evt.clientX - rect.left * (canvas.width / rect.width);
+      // arcY = evt.clientY - rect.top * (canvas.height / rect.height);
+      var arcX = Math.abs(evt.offsetX);
+      var arcY = Math.abs(evt.offsetY);
+      layer.open({
+        title: 'ICAMap',
+        type: 1,
+        area: ['500px','500px'],
+        content: $('#addForm')
+      })
+      form.on('select',function (data){
+        console.log(data.value,arcX,arcY);
+        var point={"X":arcX,"Y":arcY,"name":data.value}
+
+        document.getElementById('submit').onclick = function (){
+          $.ajax({
+            type: 'POST',
+            url: window.point_url,
+            data: {
+                "arcX":arcX,
+                "arcY":arcY,
+                "point":data.value,
+            },
+              dataType: 'JSON',
+              async: false,
+              traditional: true,
+            success: function (result) {
+
+              if (result.name == data.value){
+                  window.alert('You are right!');
+                {#layer.msg('You are right!',{icon:patient1,time:50000},function(){location.reload()});#}
+
+              }else {
+                  window.alert('Sorry, the name you chose is wrong, please choose again!');
+                {#layer.msg('Sorry,please choose again',{icon:2,time:50000},function(){location.reload()});#}
+              }
+            },
+
+          })
+        }
+      })
+    }
+    var canvas2 = document.getElementById('myCanvas2');
+    canvas2.onmousedown = function(evt) {
+      evt = window.event || evt;
+      //获取canvas相对于浏览器圆点的坐标
+      // var rect = canvas.getBoundingClientRect();
+      //获取圆心的位置
+      //获取鼠标在canvas上的位置
+      // arcX = evt.clientX - rect.left * (canvas.width / rect.width);
+      // arcY = evt.clientY - rect.top * (canvas.height / rect.height);
+      var arcX = Math.abs(evt.offsetX);
+      var arcY = Math.abs(evt.offsetY);
+      layer.open({
+        title: 'ICAMap',
+        type: 1,
+        area: ['500px','500px'],
+        content: $('#addForm')
+      })
+      form.on('select',function (data){
+        console.log(data.value,arcX,arcY);
+        var point={"X":arcX,"Y":arcY,"name":data.value}
+
+        document.getElementById('submit').onclick = function (){
+          $.ajax({
+            type: 'POST',
+            url: window.point_url,
+            data: {
+                "arcX":arcX,
+                "arcY":arcY,
+                "point":data.value,
+            },
+              dataType: 'JSON',
+              async: false,
+              traditional: true,
+            success: function (result) {
+              console.log("success");
+              if (result.name == data.value){
+                layer.msg('You are right!',{icon:1,time:50000});
+
+              }else {
+                layer.msg('Sorry,please choose again',{icon:2,time:50000});
+              }
+            },
+
+          })
+        }
+      })
+    }
+  })
+
+
+</script>
+<script>
+         var point_url = {% url "point_details" %}
+</script>
+</body>
+</html>

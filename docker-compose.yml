@@ -1,0 +1,31 @@
+
+version: '3.3'
+
+services:
+  db:
+    image: mysql/mysql-server:8.0
+    restart: always
+    environment:
+      MYSQL_DATABASE: 'angiobase_web_DB'
+      MYSQL_ROOT_PASSWORD: 'test'
+      MYSQL_ROOT_HOST: '%'
+      MYSQL_HOST: localhost
+    ports:
+      - '3306:3306'
+    volumes:
+      - './init:/docker-entrypoint-initdb.d'
+  angiobase:
+    image: angiobase
+    ports:
+      - '8000:8000'
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+      - migration
+  migration:
+    image: angiobase
+    build:
+      context: ./
+    command: python3 manage.py migrate
+    depends_on:
+      - db

@@ -1,0 +1,74 @@
+.aaa{
+             width: 350px;
+            height: 350px;
+            background-color: azure;
+
+            position: absolute;
+
+
+        }
+        #lca_btn1{
+             position: absolute;
+             transform: rotate(-140deg);
+             left: 8px;
+             bottom: 110px;
+        }
+
+        #lca_btn2{
+             position: absolute;
+             transform: rotate(-45deg);
+             left: 0px;
+             top: 100px;
+        }
+        #lca_btn3{
+            position: absolute;
+            left: 110px;
+            top: 20px;
+        }
+        #lca_btn4{
+            position: absolute;
+             transform: rotate(45deg);
+             right: 0px;
+             top: 100px;
+
+        }
+        #lca_btn5{
+            position: absolute;
+             transform: rotate(-220deg);
+             right: 8px;
+             bottom: 110px;
+
+
+        }
+        #lca_btn6{
+            position: absolute;
+             left: 110px;
+             bottom: 30px;
+
+        }
+        .bbb{
+             width: 350px;
+            height: 350px;
+            background-color: azure;
+
+            position: absolute;
+
+
+        }
+        #rca_btn1{
+             position: absolute;
+             transform: rotate(-45deg);
+             left: 40px;
+             top: 100px;
+        }
+        #rca_btn2{
+            position: absolute;
+             transform: rotate(45deg);
+             right: 40px;
+             top: 100px;
+        }
+        #rca_btn3{
+            position: absolute;
+            left: 135px;
+            top: 20px;
+        }

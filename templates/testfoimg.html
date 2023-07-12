@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+   <title>Pet Found Form a Flat Responsive Widget Template :: w3layouts </title>
+   <!-- Meta tags -->
+   <meta name="viewport" content="width=device-width, initial-scale=1" />
+   <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+   <meta name="keywords"
+      content="Pet Found Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
+   <script>
+      addEventListener("load", function () { setTimeout(hideURLbar, 0); }, false); function hideURLbar() { window.scrollTo(0, 1); }
+   </script>
+   <link rel="shortcut icon" href="/static/images/favicon.ico">
+
+   <!-- Meta tags -->
+   <!--stylesheets-->
+   <link href="/static/css/style-form.css" rel='stylesheet' type='text/css' media="all">
+   <!--//style sheet end here-->
+   <link href="//fonts.googleapis.com/css?family=Barlow:300,400,500" rel="stylesheet">
+</head>
+
+<body>
+   <div id="cover"></div>
+   <div id="form-main">
+      <h1 class="header">
+         宠 物 登 记 表
+      </h1>
+
+      <!-- multistep form -->
+      <div class="main-bothside">
+         <form action="{% url 'imgload'  %}" method="post" enctype="multipart/form-data">
+              {% csrf_token %}
+
+
+
+
+            <div class="custom-file form-left-choose">
+               <div id="file">
+                  <input type="file" name="img" multiple class="custom-file-input" id="customFile" required=""
+                     accept="image/png, image/jpeg, image/gif, image/jpg" onchange="changepic(this)">
+                  <img src="/static/images/load.png" id="show" width="100px">
+               </div>
+
+               <label for="customFile" class='btn btn-success'>选择图片</label>
+            </div>
+            <input type="submit" value="Submit">
+         </form>
+      </div>
+   </div>
+
+   <!-- <div class="copy">
+         <p>©2018 Pet Found Form. All Rights Reserved | Design </p>
+      </div> -->
+   <script>
+      function changepic() {
+         var reads = new FileReader();
+         f = document.getElementById('customFile').files[0];
+         reads.readAsDataURL(f);
+         reads.onload = function (e) {
+            document.getElementById('show').src = this.result;
+         };
+      }
+   </script>
+</body>
+
+</html>

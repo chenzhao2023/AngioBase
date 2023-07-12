@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <style type="text/css">
+                .setbg2{
+                    background: url("../static/img/42.png");
+
+                    background-size:auto;
+                    height: 512px;
+                    width: 512px;
+
+                }
+        .setbg1{
+                    background: url("../static/img/1_35.png");
+
+                    background-size:auto;
+                     height: 512px;
+                    width: 512px;
+                }
+            </style>
+</head>
+    <body style="width: 1200px;height: 600px" >
+         <div>
+        <div class=setbg1 id="p1" style="float:left;height:600px;width: 600px">
+
+        </div>
+
+        <div class=setbg2 id="p2" style="float:right;height:600px;width: 600px"></div>
+         </div>
+        {% load static %}
+        <script src="{% static '/js/echarts.min.js' %}"></script>
+        <script src="{% static '/js/jquery.min.js' %}"></script>
+
+        <script type="text/javascript">
+var dom1 = document.getElementById("p1");
+var dom2 = document.getElementById("p2");
+var myChart1 = echarts.init(dom1);
+var myChart2 = echarts.init(dom2);
+var app = {};
+var pathname = window.location.pathname;
+var option;
+
+
+
+myChart1.showLoading();
+$.get('../static/json/p1.json', function (geoJson) {
+  myChart1.hideLoading();
+  echarts.registerMap('vessel map', geoJson);
+  myChart1.setOption(
+    (option = {
+      title: {
+        text: 'ICA Vessel Map',
+        subtext: 'LCA RAO1',
+      },
+
+      tooltip: {
+        trigger: 'item'
+
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+          dataView: { readOnly: false },
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      visualMap: {
+        min: 0,
+        max: 1,
+
+        realtime: false,
+        calculable: true,
+        inRange: {
+          color: ['lightskyblue', 'yellow', 'orangered']
+        }
+      },
+      series: [
+        {
+          name: 'LCA_RAO',
+          type: 'map',
+          map: 'vessel map',
+          label: {
+            show: false
+          },
+          data: [
+              { name: 'LMA', value: 0.50000 },
+              { name: 'LAD', value:  0.30000 },
+              { name: 'LCX', value:  0.90000 },
+              { name: 'D1', value:  0.10000 },
+              { name: 'D2', value:  0.10000 },
+              { name: 'OM1', value:  0.13000 },
+              { name: 'OM2', value:  0.17000 },
+
+
+          ],
+
+
+        }
+      ]
+    })
+
+  );
+});
+
+
+$.get('../static/json/p2.json', function (geoJson) {
+  myChart2.hideLoading();
+  echarts.registerMap('vessel map', geoJson);
+
+  myChart2.setOption(
+    (option = {
+      title: {
+        text: 'ICA Vessel Map',
+        subtext: 'LCA RAO2',
+      },
+
+      tooltip: {
+        trigger: 'item'
+
+      },
+      toolbox: {
+        show: true,
+        orient: 'vertical',
+        left: 'right',
+        top: 'center',
+        feature: {
+          dataView: { readOnly: false },
+          restore: {},
+          saveAsImage: {}
+        }
+      },
+      visualMap: {
+        min: 0,
+        max: 1,
+
+        realtime: false,
+        calculable: true,
+        inRange: {
+          color: ['lightskyblue', 'yellow', 'orangered']
+        }
+      },
+      series: [
+        {
+          name: 'LCA_RAO',
+          type: 'map',
+          map: 'vessel map',
+          label: {
+            show: false
+          },
+          data: [
+              { name: 'LMA', value: 0.50000 },
+              { name: 'LAD', value: 0.30000 },
+              { name: 'LCX', value: 0.90000 },
+              { name: 'D1', value: 0.10000 },
+              { name: 'D2', value: 0.10000 },
+              { name: 'OM1', value: 0.13000 },
+              { name: 'OM2', value: 0.17000 },
+
+
+          ],
+
+
+        }
+      ]
+    })
+
+  );
+});
+if (option && typeof option === 'object') {
+    myChart1.setOption(option);
+    myChart2.setOption(option);
+}
+
+
+        </script>
+    </body>
+</html>
+
