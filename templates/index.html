@@ -13,6 +13,18 @@
     <script src="../static/js2/bootstrap.js"></script>
     <script src="../static/js/theme.js"></script>
 
+    <style>
+        .video-container {
+          display: flex;
+          justify-content: space-between;
+        }
+      
+        .video-container iframe {
+          width: 373px;
+          height: 350px;
+        }
+      </style>
+      
 
 </head>
 <body>
@@ -69,109 +81,65 @@
 
 
 <div>
-    <div class="index-tit-img">
+    <!-- <div class="index-tit-img">
             <img style="width: 170px;height: 115px; display:block; margin:auto; text-align:center" src="../static/img/logo.png">
         </div>
-    <div class="index-tit">
+    <div class="index-tit"> -->
 
-        <div class="index-tit-text">
+        <!-- <div class="index-tit-text">
             <h2>Welcome&nbsp;to&nbsp;AngioBase</h2>
             <span>Your&nbsp;Home&nbsp;for&nbsp;Mastering&nbsp;Coronary&nbsp;Angiography</span>
-        </div>
+        </div> -->
     </div>
 
     <div class="container">
         <div class="index-content">
-            <div class="content-left pull-left">
-                <div class="content-left-list">
-
-                    {% for news in news_list_l %}
-                        <div class="left-list " style="height:300px">
-                            <a href="{% url 'news_detail' news.id %}">
-                                <div class="list-data pull-left" style="height:300px">
-                                    <div class="data">{{ news.day }}</div>
-                                    <span>{{ news.month }}</span>
-                                    <span>{{ news.year }}</span>
-                                </div>
-                                <div class="list-text pull-right">{{ news.title }}</div>
-                                <div class="list-text pull-right">{{ news.content }}....</div>
-                            </a>
-                            <div class="clearfix" style="height:300px"></div>
-                        </div>
-                    {% endfor %}
-
-                </div>
-
-            </div>
-            <div class="content-right pull-right">
-
-{#            <span class="pull-right">#}
-{#                <a href="http://www.zzuli.edu.cn/280/list.htm">更多</a>#}
-{#            </span>#}
-
-                <div class="content-right-hot">
-                    {% for news in news_list_r %}
-                        <div class="left-list" style="height:300px">
-                            <a href="{% url 'news_detail' news.id %}">
-                                <div class="list-data pull-left" style="height:300px">
-                                    <div class="data">{{ news.day }}</div>
-                                    <span>{{ news.month }}</span>
-                                    <span>{{ news.year }}</span>
-                                </div>
-                                <div class="right-list-text pull-right" >{{ news.title }}</div>
-                                <div class="right-list-text pull-right">{{ news.content }}....</div>
-                            </a>
-                            <div class="clearfix" style="height:300px"></div>
-                        </div>
-                    {% endfor %}
-                    {##}
-
-                </div>
-                <div class="clearfix"></div>
-            </div>
 
             <div class="content-left pull-left">
-                <div class="content-left-list">
-
-                    <div class="left-list " style="height:300px">
-                        <img src="../static/img/SLIDE1.png" height="300px">
-                        <div class="clearfix" style="height:300px"></div>
+               
+                    <div class="left-list " style="height:700px">
+                        <img src="../static/img/SLIDE1.png" height="700px">
+                        <div class="clearfix" style="height:700px"></div>
                     </div>
-                </div>
-
+               
             </div>
 
-            <div class="content-right pull-right">
+            <div class="content-left-list pull-left">
 
-                <div class="content-right-hot">
-                    <div class="left-list" style="height:300px">
-                        <iframe width="560" height="300" src="https://www.youtube.com/embed/TiHC6MaRpeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        <div class="clearfix" style="height:300px"></div>
-                    </div>
+                <div class="left-list " style="height:700px">
+                    <img src="../static/img/SLIDE2.png" height="700px">
+                    <div class="clearfix" style="height:700px"></div>
                 </div>
-                <div class="clearfix"></div>
             </div>
             
-            <div class="content-left pull-left">
-                <div class="content-left-list">
+            <div class="content-left-list pull-left">
 
-                    <div class="left-list " style="height:300px">
-                        <img src="../static/img/SLIDE2.png" height="300px">
-                        <div class="clearfix" style="height:300px"></div>
-                    </div>
+                <div class="video-container">
+                    <iframe src="https://www.youtube.com/embed/TiHC6MaRpeY"></iframe>
+                    <iframe src="https://www.youtube.com/embed/OAgxAvVmUI4"></iframe>
+                    <iframe src="https://www.youtube.com/embed/3P2GNPYxEJo"></iframe>
+                  </div>
+
+                <!-- <div class="content-left-list  pull-left">
+
+                        <div class="left-list" style="height:300px">
+                            <iframe width="560" height="300" src="https://www.youtube.com/embed/TiHC6MaRpeY" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <div class="clearfix" style="height:300px"></div>
+                        </div>
+                    <div class="clearfix"></div>
                 </div>
+                
+            
+                <div class="content-right pull-right">
 
-            </div>
-
-            <div class="content-right pull-right">
-
-                <div class="content-right-hot">
-                    <div class="left-list" style="height:300px">
-                        <iframe width="560" height="315" src="https://www.youtube.com/embed/OAgxAvVmUI4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
-                        <div class="clearfix" style="height:300px"></div>
+                    <div class="content-right-hot">
+                        <div class="left-list" style="height:300px">
+                            <iframe width="560" height="315" src="https://www.youtube.com/embed/OAgxAvVmUI4" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen></iframe>
+                            <div class="clearfix" style="height:300px"></div>
+                        </div>
                     </div>
-                </div>
-                <div class="clearfix"></div>
+                    <div class="clearfix"></div>
+                </div> -->
             </div>
 
         </div>
