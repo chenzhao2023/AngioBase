@@ -644,7 +644,7 @@ layui.use(['layer', 'form'], function () {
         })
 
     }
-    canvas.addEventListener('click', function (event) {
+    canvas.addEventListener('mousemove', function (event) {
     var mouseX = event.offsetX;
     var mouseY = event.offsetY;
 
@@ -802,7 +802,7 @@ layui.use(['layer', 'form'], function () {
 
         })
     }
-     canvas2.addEventListener('click', function (event) {
+     canvas2.addEventListener('mousemove', function (event) {
     var mouseX = event.offsetX;
     var mouseY = event.offsetY;
 
@@ -1014,86 +1014,31 @@ console.log(patient_name)
 
 
 
- const hintsBtn = document.getElementById('hintsBtn');
-  const hintsBtn2 = document.getElementById('hintsBtn2');
-  const hintPopup = document.getElementById('hintPopup');
-  const hintContent = document.getElementById('hintContent');
- const nextHintBtn = document.getElementById('nextHintBtn');
-   const closeHintBtn = document.getElementById('closeHintBtn');
-  //An array of prompt content, with each button corresponding to an array
-  const hints1 = [
-    "\n" +
-    "LAO/CRA:\n1.LAD is the left-most vessel in LAO/CRA\n2.LAD should travel “straight” down in this view\n3.LAD touches the apex (tip of the heart)\n",
-    "LAO/CAU:\n1.Watch the LAD travel “upwards”\n2.LCx should travel “downwards” and to the “right” of the LAD\n",
+ // Get hintsBtn and hintPopup elements
+  var hintsBtn = document.getElementById("hintsBtn");
+  var hintsBtn2 = document.getElementById("hintsBtn2");
+  var hintPopup = document.getElementById("hintPopup");
 
-  ];
-
-  const hints2 = [
-    "RAO/CRA1.LAD is the left-most vessel in RAO/CRA\n2.LAD should travel to the apex at ~ 45 degree angle \n3.LCx appears overlapped with LAD\n",
-    "RAO/CAU:1.LCx is the left-most vessel in RAO/CAU2.LCx makes a cuve in the shape of a “C”3.LAD travels “above” and to the “right” of the LCx 4.LAD touches the apex (tip of the heart)\n",
-
-  ];
-
-  let currentHintIndex = 0;
-  let currentButton = null;
-
-  //
-
-// Display prompt content
-  function showHint() {
-    let hints = [];
-    if (currentButton === hintsBtn) {
-      hints = hints1;
-    } else if (currentButton === hintsBtn2) {
-      hints = hints2;
-    }
-
-    if (currentHintIndex >= hints.length) {
-      hintContent.textContent = "No more hints available";
-     nextHintBtn.style.display = 'none';
-        closeHintBtn.style.display = 'block';
-
-    } else {
-      hintContent.textContent = hints[currentHintIndex];
-    }
-
-    // Show pop-up window
-    hintPopup.classList.remove('hidden');
-  }
-
-  //
-// Show next prompt
-  function showNextHint() {
-    currentHintIndex++;
-    showHint();
-  }
-
-  // Close pop-up window
-  function closeHintPopup() {
-    hintPopup.classList.add('hidden');
-    currentHintIndex = 0;
-    nextHintBtn.style.display = 'block';
-    closeHintBtn.style.display = 'none';
-  }
-
-  // First button click event
-  hintsBtn.addEventListener('click', function() {
-    currentButton = hintsBtn;
-    showHint();
+  // Listen for click events on hintsBtn
+  hintsBtn.addEventListener("click", function() {
+    showHintPopup("LAO/CRA: \r 1.LAD is the left-most vessel in LAO/CRA \n2.LAD should travel “straight” down in this view 3.LAD touches the apex (tip of the heart) LAO/CAU:1.Watch the LAD travel “upwards”2.LCx should travel “downwards” and to the “right” of the LAD");
   });
 
-  // Second button click event
-  hintsBtn2.addEventListener('click', function() {
-    currentButton = hintsBtn2;
-    showHint();
+  hintsBtn2.addEventListener("click", function() {
+    showHintPopup("RAO/CRA1.LAD is the left-most vessel in RAO/CRA2.LAD should travel to the apex at ~ 45 degree angle 3.LCx appears overlapped with LAD RAO/CAU:1.LCx is the left-most vessel in RAO/CAU2.LCx makes a curve in the shape of a “C”3.LAD travels “above” and to the “right” of the LCx 4.LAD touches the apex (tip of the heart)" );
   });
 
-  // Next prompt button click event
-  nextHintBtn.addEventListener('click', function() {
-    showNextHint();
-  });
+  // Function to show the hint popup with specified content
+  function showHintPopup(content) {
+    // Set the content of hintContent paragraph
+    document.getElementById("hintContent").textContent = content;
 
-  // Close button click event
-  closeHintBtn.addEventListener('click', function() {
-    closeHintPopup();
+    // Display the hintPopup
+    hintPopup.classList.remove("hidden");
+  }
+
+  // Listen for click events on closeHintBtn
+  document.getElementById("closeHintBtn").addEventListener("click", function() {
+    // Hide the hintPopup
+    hintPopup.classList.add("hidden");
   });
