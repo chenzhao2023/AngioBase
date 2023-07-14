@@ -1042,3 +1042,26 @@ console.log(patient_name)
     // Hide the hintPopup
     hintPopup.classList.add("hidden");
   });
+
+  // 获取按钮和需要隐藏的元素
+  var toggleButton = document.getElementById("4");
+  var angle1 = document.getElementById("show_angle1");
+  var angle2 = document.getElementById("show_angle2");
+
+  // 绑定按钮点击事件
+  toggleButton.addEventListener("click", function() {
+    // 切换按钮文本
+    if (toggleButton.innerText === "Hide Angles") {
+      toggleButton.innerText = "Show Angles";
+    } else {
+      toggleButton.innerText = "Hide Angles";
+    }
+    // 切换元素的可见性
+    if (angle1.style.display === "none") {
+      angle1.style.display = "block";
+      angle2.style.display = "block";
+    } else {
+      angle1.style.display = "none";
+      angle2.style.display = "none";
+    }
+  });
