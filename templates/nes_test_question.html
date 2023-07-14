@@ -108,7 +108,19 @@
             <div class="news-right pull-left" style="margin-top: 30px">
 
                 <div class="text" style="width: 1100px">
-                    <div class="list-text pull-left" style=" position:absolute;margin-top: 100px">
+                    <div class="list-text pull-left">
+                        {% if one.g_count != 0 %}
+                        <li id="liId">1/{{ one.g_count }}</li>
+
+                        <li class="show-img"><a href="#"><img id="imgId"
+                                                              src="\static\question\q\QB{{ one.gid }}\QB{{ one.gid }}_1.gif">
+                        </a></li>
+                        <button id="button1" class="prev pull-left"><--Pre</button>
+                        <button id="button2" class="next pull-right">Next--></button>
+                        {% endif %}
+
+                    </div>
+                    <div class="list-text pull-right"  style="margin-top: 30px;">
                         <form id="formid" action="" method="post" enctype="multipart/form-data">
                                 <div class="form-check">
                                     {% for answer , option in  one.answers %}
@@ -216,18 +228,7 @@
 
                         </form>
                     </div>
-                    <div class="list-text pull-right">
-                        {% if one.g_count != 0 %}
-                        <li id="liId">1/{{ one.g_count }}</li>
-
-                        <li class="show-img"><a href="#"><img id="imgId"
-                                                              src="\static\question\q\QB{{ one.gid }}\QB{{ one.gid }}_1.gif">
-                        </a></li>
-                        <button id="button1" class="prev pull-left"><--Pre</button>
-                        <button id="button2" class="next pull-right">Next--></button>
-                        {% endif %}
-
-                    </div>
+                    
                     <div class="clearfix"></div>
                 </div>
 

@@ -1021,17 +1021,99 @@ console.log(patient_name)
 
   // Listen for click events on hintsBtn
   hintsBtn.addEventListener("click", function() {
-    showHintPopup("LAO/CRA: \r 1.LAD is the left-most vessel in LAO/CRA \n2.LAD should travel “straight” down in this view 3.LAD touches the apex (tip of the heart) LAO/CAU:1.Watch the LAD travel “upwards”2.LCx should travel “downwards” and to the “right” of the LAD");
+
+          $.ajax({
+            type: 'POST',
+            url: window.get_main_angle_url,
+            data: {
+                "patient_name": patient_name,
+            },
+            dataType: 'JSON',
+            async: false,
+            traditional: true,
+            success: function (result) {
+
+                var postinfor1 = result.postinfor1
+                var postinfor2 = result.postinfor2
+var strArr1 = postinfor1.split(" ");
+var strArr2 = postinfor2.split(" ");
+var one = strArr1[0];
+var two = strArr1[3];
+var three = strArr2[0];
+var froe = strArr2[3];
+                console.log(one, two,three,froe)
+                var str2;
+            if(one ==="RAO:"&& two==="CRA:")
+            {
+                showHintPopup( "<ul><li>1.LAD is the left-most vessel in RAO/CRA </li> <li>2.LAD should travel to the apex at ~ 45 degree angle </li> <li>3.LCx appears overlapped with LAD</li><ul>");
+            }
+            else if(one ==="RAO:"&& two==="CAU:"){
+                showHintPopup("<ul><li>1.LCx is the left-most vessel in RAO/CAU </li> <li>2.LCx makes a curve in the shape of a “C” </li> <li> 3.LAD travels “above” and to the “right” of the LCx </li> <li> 4.LAD touches the apex (tip of the heart) </li></ul>");
+            }
+            else if(one ==="LAO:"&& two==="CRA:"){
+            showHintPopup("<ul><li>1.LAD is the left-most vessel in LAO/CRA </li> <li> 2.LAD should travel “straight” down in this view </li> <li> 3.LAD touches the apex (tip of the heart) </li></ul>");
+            }
+            else{
+                showHintPopup("<ul><li>1.Watch the LAD travel “upwards” </li> <li> 2.LCx should travel “downwards” and to the “right” of the LAD</li></ul>");
+            }
+
+
+            },
+            error: function (request) {
+                console.log("未进接口！！！");
+            },
+        })
+
   });
 
   hintsBtn2.addEventListener("click", function() {
-    showHintPopup("RAO/CRA1.LAD is the left-most vessel in RAO/CRA2.LAD should travel to the apex at ~ 45 degree angle 3.LCx appears overlapped with LAD RAO/CAU:1.LCx is the left-most vessel in RAO/CAU2.LCx makes a curve in the shape of a “C”3.LAD travels “above” and to the “right” of the LCx 4.LAD touches the apex (tip of the heart)" );
+$.ajax({
+            type: 'POST',
+            url: window.get_main_angle_url,
+            data: {
+                "patient_name": patient_name,
+            },
+            dataType: 'JSON',
+            async: false,
+            traditional: true,
+            success: function (result) {
+
+                var postinfor1 = result.postinfor1
+                var postinfor2 = result.postinfor2
+var strArr1 = postinfor1.split(" ");
+var strArr2 = postinfor2.split(" ");
+var one = strArr1[0];
+var two = strArr1[3];
+var three = strArr2[0];
+var froe = strArr2[3];
+                console.log(one, two,three,froe)
+                var str2;
+            if(two ==="RAO:"&& froe==="CRA:")
+            {
+                showHintPopup( "<ul><li>1.LAD is the left-most vessel in RAO/CRA </li> <li>2.LAD should travel to the apex at ~ 45 degree angle </li> <li>3.LCx appears overlapped with LAD</li><ul>");
+            }
+            else if(three ==="RAO:"&& froe==="CAU:"){
+                showHintPopup("<ul><li>1.LCx is the left-most vessel in RAO/CAU </li> <li>2.LCx makes a curve in the shape of a “C” </li> <li> 3.LAD travels “above” and to the “right” of the LCx </li> <li> 4.LAD touches the apex (tip of the heart) </li></ul>");
+            }
+            else if(three ==="LAO:"&& froe==="CRA:"){
+            showHintPopup("<ul><li>1.LAD is the left-most vessel in LAO/CRA </li> <li> 2.LAD should travel “straight” down in this view </li> <li> 3.LAD touches the apex (tip of the heart) </li></ul>");
+            }
+            else{
+                showHintPopup("<ul><li>1.Watch the LAD travel “upwards” </li> <li> 2.LCx should travel “downwards” and to the “right” of the LAD</li></ul>");
+            }
+
+
+            },
+            error: function (request) {
+                console.log("未进接口！！！");
+            },
+        })
   });
 
   // Function to show the hint popup with specified content
   function showHintPopup(content) {
     // Set the content of hintContent paragraph
-    document.getElementById("hintContent").textContent = content;
+    document.getElementById("hintContent").innerHTML = content;
 
     // Display the hintPopup
     hintPopup.classList.remove("hidden");
